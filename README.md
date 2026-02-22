@@ -1,32 +1,24 @@
-# Agentic Mist
+# Mist
 
-Location-based MFA for AI agent actions.
+MFA for AI agents.
 
-Agentic Mist is the landing page and documentation site for the **Mist Channel** — an OpenClaw plugin that uses AirVaults to automatically approve or deny risky AI agent operations based on your physical location.
+Mist is an [OpenClaw](https://github.com/percent-20/openclaw) plugin that adds multi-factor authentication to AI agent actions. When your agent attempts something risky, Mist pauses the action and asks a human to approve or deny via the [SafeRoom](https://percent-20.com) companion app.
 
 **Live site:** [percent-20.github.io/agentic-mist](https://percent-20.github.io/agentic-mist/)
 
-## How It Works
+## Quick Start
 
-1. An AI agent (Claude, etc.) triggers a risky action through OpenClaw
-2. OpenClaw's approval engine flags the risk and pauses execution
-3. The Mist channel sends a challenge to AirVaults
-4. AirVaults checks if you're physically inside your vault's geofenced location
-5. If you're inside: approved instantly. If not: denied.
+```bash
+openclaw plugins install @percent-20/openclaw-mfa-gate
+openclaw mfa          # pair with SafeRoom via QR code
+openclaw restart
+```
 
-No pop-ups. No codes. No friction.
+## Links
 
-## Tech Stack
-
-- Static HTML/CSS/JS (no build step)
-- Hosted on GitHub Pages
-- Dark theme with responsive layout
-
-## Related Projects
-
-- [OpenClaw](https://github.com/percent-20/openclaw) — AI agent security gateway
-- [AirVaults](https://github.com/percent-20/airvaults) — Location-based encrypted vault platform
-- [openclaw-mfa-gate](https://github.com/percent-20/airvaults/tree/main/apps/openclaw-mfa-gate) — The Mist channel plugin
+- [Percent-20](https://percent-20.com)
+- [OpenClaw](https://github.com/percent-20/openclaw)
+- [AirVaults](https://github.com/percent-20/airvaults)
 
 ## License
 
