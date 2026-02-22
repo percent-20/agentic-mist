@@ -18,7 +18,6 @@ openclaw restart
 
 - [Percent-20](https://percent-20.com)
 - [OpenClaw](https://github.com/percent-20/openclaw)
-- [AirVaults](https://github.com/percent-20/airvaults)
 
 ## License
 
