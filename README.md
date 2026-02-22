@@ -18,6 +18,7 @@ openclaw restart
 
 - [Percent-20](https://percent-20.com)
 - [OpenClaw](https://github.com/percent-20/openclaw)
+- [Mist Plugin](https://github.com/percent-20/openclaw-mfa-gate)
 
 ## License
 

@@ -28,7 +28,7 @@
         <a href="#install">Install</a>
         <a href="#privacy">Privacy</a>
         <a href="#faq">FAQ</a>
-        <a href="https://github.com/percent-20/agentic-mist" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/percent-20/openclaw-mfa-gate" target="_blank" rel="noopener">GitHub</a>
       </div>
     </div>
   </nav>
@@ -47,7 +47,7 @@
       </p>
       <div class="hero-actions">
         <a href="#install" class="btn btn-primary">Add Mist to OpenClaw</a>
-        <a href="https://github.com/percent-20/agentic-mist" class="btn btn-secondary" target="_blank" rel="noopener">View on GitHub</a>
+        <a href="https://github.com/percent-20/openclaw-mfa-gate" class="btn btn-secondary" target="_blank" rel="noopener">View on GitHub</a>
       </div>
       <div class="hero-terminal">
         <div class="terminal-bar">
@@ -80,14 +80,14 @@
         <div class="step-arrow">&#10132;</div>
         <div class="step-card">
           <div class="step-number">2</div>
-          <h3>Mist sends an MFA challenge</h3>
-          <p>The action is paused. Mist creates a challenge and routes it to you. You get notified on your phone via SafeRoom.</p>
+          <h3>Mist checks your environment</h3>
+          <p>The action is paused. Mist checks whether you're in a safe environment that you defined &mdash; the right WiFi, the right time, the right place. All verified from encrypted signals on your phone.</p>
         </div>
         <div class="step-arrow">&#10132;</div>
         <div class="step-card">
           <div class="step-number">3</div>
-          <h3>You approve or deny</h3>
-          <p>Review the action, tap approve or deny. The decision flows back through Mist to OpenClaw, and the agent continues or stops. Seconds, not minutes.</p>
+          <h3>Auto-approve or escalate</h3>
+          <p>If your environment matches: approved instantly, no interruption. If it doesn't: you get a push notification on SafeRoom to review and decide. Seconds, not minutes.</p>
         </div>
       </div>
     </div>
@@ -143,7 +143,7 @@
       <div class="install-step">
         <div class="install-step-header">
           <span class="install-step-num">2</span>
-          <h3>Pair with SafeRoom</h3>
+          <h3>Pair with SafeRoom and define your safe environment</h3>
         </div>
         <p>Run the setup wizard. It generates a QR code &mdash; scan it with the SafeRoom app to bind your vault.</p>
         <div class="code-block">
@@ -153,6 +153,26 @@
           </div>
           <pre><code>openclaw mfa</code></pre>
         </div>
+        <p>Once paired, SafeRoom asks you to define a <strong>safe environment</strong> &mdash; the conditions under which agent actions should be auto-approved. You combine signals from your phone:</p>
+        <div class="env-example">
+          <div class="env-example-header">Example safe environment</div>
+          <div class="env-rules">
+            <div class="env-rule">
+              <span class="env-icon">&#128246;</span>
+              <span>Connected to <strong>&ldquo;Jerry-Home&rdquo;</strong> WiFi</span>
+            </div>
+            <div class="env-rule">
+              <span class="env-icon">&#128336;</span>
+              <span>Between <strong>08:00</strong> and <strong>19:00</strong></span>
+            </div>
+            <div class="env-rule">
+              <span class="env-icon">&#127968;</span>
+              <span>At <strong>home</strong></span>
+            </div>
+          </div>
+          <p class="env-caption">When all conditions match, risky actions are approved without interrupting you. When they don't, SafeRoom sends you a notification to review.</p>
+        </div>
+        <p>You can define multiple environments (home, office, caf&eacute;) with different rules and time windows. All signals are hashed and encrypted on your phone &mdash; the server never sees raw WiFi names, locations, or device identifiers.</p>
         <div class="app-notice">
           <div class="app-notice-icon">&#128241;</div>
           <div>
@@ -289,7 +309,7 @@
           <span class="footer-sep">An <a href="https://percent-20.com" target="_blank" rel="noopener">Percent-20</a> project.</span>
         </div>
         <div class="footer-links">
-          <a href="https://github.com/percent-20/agentic-mist" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://github.com/percent-20/openclaw-mfa-gate" target="_blank" rel="noopener">GitHub</a>
           <a href="https://github.com/percent-20/openclaw" target="_blank" rel="noopener">OpenClaw</a>
           <a href="https://percent-20.com" target="_blank" rel="noopener">Percent-20</a>
         </div>
