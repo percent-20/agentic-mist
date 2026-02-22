@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agentic Mist - Location-Based MFA for AI Agent Actions</title>
+  <meta name="description" content="Zero-friction multi-factor authentication for AI agent actions. Approve or deny risky operations based on your physical location using AirVaults.">
+  <meta property="og:title" content="Agentic Mist - Location-Based MFA for AI Agent Actions">
+  <meta property="og:description" content="Zero-friction multi-factor authentication for AI agent actions. Approve or deny risky operations based on your physical location.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://percent-20.github.io/agentic-mist/">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <span class="logo-icon">&#9672;</span> Agentic Mist
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links" id="nav-links">
+        <a href="#how-it-works">How It Works</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#install">Install</a>
+        <a href="#config">Config</a>
+        <a href="#faq">FAQ</a>
+        <a href="https://github.com/percent-20/agentic-mist" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="container">
+      <div class="hero-badge">OpenClaw Plugin</div>
+      <h1 class="hero-title">
+        Location-based MFA<br>for AI agent actions
+      </h1>
+      <p class="hero-subtitle">
+        Agentic Mist connects OpenClaw to AirVaults, automatically approving or denying
+        risky AI operations based on your physical location. No prompts. No tokens. No friction.
+      </p>
+      <div class="hero-actions">
+        <a href="#install" class="btn btn-primary">Get Started</a>
+        <a href="https://github.com/percent-20/agentic-mist" class="btn btn-secondary" target="_blank" rel="noopener">View on GitHub</a>
+      </div>
+      <div class="hero-terminal">
+        <div class="terminal-bar">
+          <span class="terminal-dot red"></span>
+          <span class="terminal-dot yellow"></span>
+          <span class="terminal-dot green"></span>
+          <span class="terminal-title">Terminal</span>
+        </div>
+        <div class="terminal-body">
+<pre><code><span class="t-prompt">$</span> openclaw exec <span class="t-string">"delete all staging data"</span>
+<span class="t-muted">&#9656; Risk detected: destructive_action, bulk_operation</span>
+<span class="t-muted">&#9656; MFA challenge sent to Mist channel...</span>
+<span class="t-muted">&#9656; Checking vault presence...</span>
+<span class="t-success">&#10003; Owner inside vault. Approved in 340ms.</span>
+<span class="t-muted">&#9656; Executing action...</span></code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="section" id="how-it-works">
+    <div class="container">
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-subtitle">Three components, one seamless flow</p>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <div class="step-icon">&#9888;</div>
+          <h3>OpenClaw Detects Risk</h3>
+          <p>When an AI agent attempts a risky action (file deletion, data export, privilege escalation), OpenClaw's approval engine flags it and pauses execution.</p>
+        </div>
+        <div class="step-arrow">&#10132;</div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <div class="step-icon">&#9673;</div>
+          <h3>AirVaults Checks Location</h3>
+          <p>The Mist channel sends a challenge to AirVaults. The server checks whether the vault owner is physically inside the vault's geofenced area using real-time location tracking.</p>
+        </div>
+        <div class="step-arrow">&#10132;</div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <div class="step-icon">&#10003;</div>
+          <h3>Auto Approve or Deny</h3>
+          <p>If you're inside the vault: approved instantly. If not: denied. No pop-ups, no push notifications, no manual taps required. The decision happens in milliseconds.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Architecture -->
+  <section class="section section-alt" id="architecture">
+    <div class="container">
+      <h2 class="section-title">Architecture</h2>
+      <p class="section-subtitle">The approval flow from trigger to resolution</p>
+      <div class="architecture-diagram">
+<pre class="diagram">
+  ┌─────────────────────────────────────────────────────────────────────┐
+  │                        YOUR MACHINE                                 │
+  │                                                                     │
+  │  ┌──────────────┐     ┌──────────────┐     ┌────────────────────┐  │
+  │  │  AI Agent     │────▶│  OpenClaw    │────▶│  Mist Channel      │  │
+  │  │  (Claude,etc) │     │  Gateway     │     │  (MFA Gate Plugin) │  │
+  │  └──────────────┘     └──────────────┘     └────────┬───────────┘  │
+  │                              ▲                       │              │
+  │                              │                       │              │
+  │                     ┌────────┴─────────┐             │              │
+  │                     │ exec.approval    │             │              │
+  │                     │ .resolve()       │             │              │
+  │                     └──────────────────┘             │              │
+  └──────────────────────────────────────────────────────┼──────────────┘
+                                                         │
+                         HTTPS + Ed25519 Auth             │
+                                                         ▼
+  ┌─────────────────────────────────────────────────────────────────────┐
+  │                      AIRVAULTS CLOUD                                │
+  │                                                                     │
+  │  ┌──────────────────┐     ┌──────────────┐     ┌────────────────┐  │
+  │  │ POST /challenge   │────▶│ Visit        │────▶│ Decision:      │  │
+  │  │ (MFA Vault API)   │     │ Tracker      │     │ approved/denied│  │
+  │  └──────────────────┘     └──────┬───────┘     └────────────────┘  │
+  │                                   │                                 │
+  │                          ┌────────▼────────┐                        │
+  │                          │ Redis: user in  │                        │
+  │                          │ vault geofence? │                        │
+  │                          └─────────────────┘                        │
+  └─────────────────────────────────────────────────────────────────────┘
+                                   ▲
+                                   │  GPS Location Updates
+                                   │
+                          ┌────────┴────────┐
+                          │   SafeRoom App  │
+                          │   (Your Phone)  │
+                          └─────────────────┘
+</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Prerequisites -->
+  <section class="section" id="prerequisites">
+    <div class="container">
+      <h2 class="section-title">Prerequisites</h2>
+      <div class="prereq-grid">
+        <div class="prereq-card">
+          <h3>OpenClaw</h3>
+          <p>The AI agent security gateway. Install it first if you haven't already.</p>
+          <a href="https://github.com/percent-20/openclaw" class="link" target="_blank" rel="noopener">github.com/percent-20/openclaw &#8599;</a>
+        </div>
+        <div class="prereq-card">
+          <h3>SafeRoom App</h3>
+          <p>The mobile companion app that tracks your location and manages vault presence. Currently in early access.</p>
+          <a href="#waitlist" class="link">Join the waiting list &#8595;</a>
+        </div>
+        <div class="prereq-card">
+          <h3>Node.js 18+</h3>
+          <p>Required for running OpenClaw and the Mist channel plugin.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Installation Tutorial -->
+  <section class="section section-alt" id="install">
+    <div class="container">
+      <h2 class="section-title">Installation</h2>
+      <p class="section-subtitle">Get up and running in 6 steps</p>
+
+      <!-- Step 1 -->
+      <div class="install-step">
+        <div class="install-step-header">
+          <span class="install-step-num">1</span>
+          <h3>Install OpenClaw</h3>
+        </div>
+        <p>If you don't have OpenClaw installed yet, install it globally:</p>
+        <div class="code-block">
+          <div class="code-header">
+            <span>bash</span>
+            <button class="copy-btn" data-copy="npm install -g @percent-20/openclaw">Copy</button>
+          </div>
+          <pre><code>npm install -g @percent-20/openclaw</code></pre>
+        </div>
+        <p>Verify the installation:</p>
+        <div class="code-block">
+          <div class="code-header">
+            <span>bash</span>
+            <button class="copy-btn" data-copy="openclaw --version">Copy</button>
+          </div>
+          <pre><code>openclaw --version</code></pre>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="install-step">
+        <div class="install-step-header">
+          <span class="install-step-num">2</span>
+          <h3>Install the Mist Channel Plugin</h3>
+        </div>
+        <p>Install the Mist (AirVaults MFA) plugin for OpenClaw:</p>
+        <div class="code-block">
+          <div class="code-header">
+            <span>bash</span>
+            <button class="copy-btn" data-copy="openclaw plugins install @percent-20/openclaw-mfa-gate">Copy</button>
+          </div>
+          <pre><code>openclaw plugins install @percent-20/openclaw-mfa-gate</code></pre>
+        </div>
+        <p>This registers the <code>mist</code> channel with your OpenClaw gateway. You can verify it's loaded:</p>
+        <div class="code-block">
+          <div class="code-header">
+            <span>bash</span>
+            <button class="copy-btn" data-copy="openclaw channels list">Copy</button>
+          </div>
+          <pre><code>openclaw channels list
+<span class="t-muted"># Output:
+# &#10003; mist    Mist (AirVaults MFA)    v1.0.0</span></code></pre>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="install-step">
+        <div class="install-step-header">
+          <span class="install-step-num">3</span>
+          <h3>Get the SafeRoom Mobile App</h3>
+        </div>
+        <p>
+          SafeRoom is the mobile companion app that manages your vault presence.
+          It tracks your location and creates the geofenced vaults that Mist uses for approvals.
+        </p>
+        <div class="app-notice">
+          <div class="app-notice-icon">&#128241;</div>
+          <div>
+            <strong>Early Access</strong>
+            <p>SafeRoom is currently in early access and not yet available on app stores. Join the waiting list below to get notified when it launches.</p>
+            <a href="#waitlist" class="btn btn-small">Join Waiting List</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="install-step">
+        <div class="install-step-header">
+          <span class="install-step-num">4</span>
+          <h3>Run the MFA Setup Wizard</h3>
+        </div>
+        <p>The setup wizard generates a QR code that you scan with SafeRoom to bind your vault to this OpenClaw instance:</p>
+        <div class="code-block">
+          <div class="code-header">
+            <span>bash</span>
+            <button class="copy-btn" data-copy="openclaw mfa">Copy</button>
+          </div>
+          <pre><code>openclaw mfa</code></pre>
+        </div>
+        <p>This will:</p>
+        <ol class="install-list">
+          <li>Generate a unique instance ID for your OpenClaw installation</li>
+          <li>Display a QR code in your terminal (and optionally open it in your browser)</li>
+          <li>Wait up to 5 minutes for you to scan the QR code with SafeRoom</li>
+          <li>Once scanned, SafeRoom creates an MFA vault and binds it to your instance</li>
+          <li>The wizard auto-detects the binding and saves the vault UID and access token</li>
+        </ol>
+        <p>If QR scanning fails, you can manually bind using the key displayed in SafeRoom:</p>
+        <div class="code-block">
+          <div class="code-header">
+            <span>bash</span>
+            <button class="copy-btn" data-copy="openclaw mfa bind mfa:bind:<vault_uid>:<token>">Copy</button>
+          </div>
+          <pre><code>openclaw mfa bind mfa:bind:&lt;vault_uid&gt;:&lt;token&gt;</code></pre>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="install-step">
+        <div class="install-step-header">
+          <span class="install-step-num">5</span>
+          <h3>Configure Exec Approvals</h3>
+        </div>
+        <p>Edit your OpenClaw configuration to route approval requests through the Mist channel. Open <code>~/.openclaw/config.json</code>:</p>
+        <div class="code-block">
+          <div class="code-header">
+            <span>~/.openclaw/config.json</span>
+            <button class="copy-btn" data-copy='{
+  "approvals": {
+    "provider": "mist",
+    "riskThreshold": "medium"
+  },
+  "channels": {
+    "mist": {
+      "enabled": true,
+      "apiBaseUrl": "https://tryme.abraquadabra.com"
+    }
+  }
+}'>Copy</button>
+          </div>
+          <pre><code>{
+  <span class="t-key">"approvals"</span>: {
+    <span class="t-key">"provider"</span>: <span class="t-string">"mist"</span>,
+    <span class="t-key">"riskThreshold"</span>: <span class="t-string">"medium"</span>
+  },
+  <span class="t-key">"channels"</span>: {
+    <span class="t-key">"mist"</span>: {
+      <span class="t-key">"enabled"</span>: <span class="t-bool">true</span>,
+      <span class="t-key">"apiBaseUrl"</span>: <span class="t-string">"https://tryme.abraquadabra.com"</span>
+    }
+  }
+}</code></pre>
+        </div>
+        <p>The <code>riskThreshold</code> determines which actions require MFA approval. Set it to <code>"low"</code> for maximum security or <code>"high"</code> for only the most dangerous operations.</p>
+      </div>
+
+      <!-- Step 6 -->
+      <div class="install-step">
+        <div class="install-step-header">
+          <span class="install-step-num">6</span>
+          <h3>Restart and Test</h3>
+        </div>
+        <p>Restart the OpenClaw gateway to pick up the new configuration:</p>
+        <div class="code-block">
+          <div class="code-header">
+            <span>bash</span>
+            <button class="copy-btn" data-copy="openclaw restart">Copy</button>
+          </div>
+          <pre><code>openclaw restart</code></pre>
+        </div>
+        <p>Now test with a risky action. Make sure you're physically inside your vault location first:</p>
+        <div class="code-block">
+          <div class="code-header">
+            <span>bash</span>
+            <button class="copy-btn" data-copy='openclaw exec "delete temp files in /tmp/staging"'>Copy</button>
+          </div>
+          <pre><code>openclaw exec <span class="t-string">"delete temp files in /tmp/staging"</span>
+
+<span class="t-muted"># Expected output:</span>
+<span class="t-muted"># &#9656; Risk detected: file_deletion, destructive_action</span>
+<span class="t-muted"># &#9656; MFA challenge sent to Mist channel...</span>
+<span class="t-muted"># &#9656; Checking vault presence...</span>
+<span class="t-success"># &#10003; Approved (owner inside vault). Executing...</span></code></pre>
+        </div>
+        <p>Check the MFA status to see the challenge log:</p>
+        <div class="code-block">
+          <div class="code-header">
+            <span>bash</span>
+            <button class="copy-btn" data-copy="openclaw mfa status">Copy</button>
+          </div>
+          <pre><code>openclaw mfa status
+
+<span class="t-muted"># MFA Vault Status</span>
+<span class="t-muted"># ────────────────</span>
+<span class="t-muted"># Vault:       My Workspace Vault</span>
+<span class="t-muted"># Challenges:  14 total (12 approved, 2 denied)</span>
+<span class="t-muted"># Last:        2 minutes ago - approved (file_deletion)</span></code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Configuration Reference -->
+  <section class="section" id="config">
+    <div class="container">
+      <h2 class="section-title">Configuration Reference</h2>
+      <p class="section-subtitle">All Mist channel configuration fields</p>
+
+      <div class="config-table-wrapper">
+        <table class="config-table">
+          <thead>
+            <tr>
+              <th>Field</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>enabled</code></td>
+              <td>boolean</td>
+              <td><code>true</code></td>
+              <td>Enable or disable the Mist channel</td>
+            </tr>
+            <tr>
+              <td><code>instanceId</code></td>
+              <td>string</td>
+              <td><em>auto-generated</em></td>
+              <td>Unique identifier for this OpenClaw instance. Generated during <code>openclaw mfa</code> setup</td>
+            </tr>
+            <tr>
+              <td><code>websocketUrl</code></td>
+              <td>string</td>
+              <td><code>ws://127.0.0.1:18789</code></td>
+              <td>OpenClaw gateway WebSocket URL for approval resolution</td>
+            </tr>
+            <tr>
+              <td><code>vaultUid</code></td>
+              <td>string</td>
+              <td>&mdash;</td>
+              <td>The AirVaults MFA vault UID. Set automatically after QR code binding</td>
+            </tr>
+            <tr>
+              <td><code>accessToken</code></td>
+              <td>string</td>
+              <td>&mdash;</td>
+              <td>Authentication token for the MFA vault API</td>
+            </tr>
+            <tr>
+              <td><code>apiBaseUrl</code></td>
+              <td>string</td>
+              <td><code>https://tryme.abraquadabra.com</code></td>
+              <td>AirVaults API base URL</td>
+            </tr>
+            <tr>
+              <td><code>pollIntervalMs</code></td>
+              <td>number</td>
+              <td><code>500</code></td>
+              <td>How often to poll for challenge decisions (milliseconds)</td>
+            </tr>
+            <tr>
+              <td><code>pollTimeoutMs</code></td>
+              <td>number</td>
+              <td><code>120000</code></td>
+              <td>Maximum time to wait for a challenge decision (milliseconds)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="subsection-title">Risk Levels</h3>
+      <p>OpenClaw assigns risk levels to actions. The <code>riskThreshold</code> in your config determines which levels trigger MFA:</p>
+      <div class="risk-grid">
+        <div class="risk-card risk-low">
+          <h4>Low <span class="risk-score">0.2</span></h4>
+          <p>Read operations, listing files, non-destructive queries</p>
+        </div>
+        <div class="risk-card risk-medium">
+          <h4>Medium <span class="risk-score">0.5</span></h4>
+          <p>File modifications, configuration changes, data updates</p>
+        </div>
+        <div class="risk-card risk-high">
+          <h4>High <span class="risk-score">0.8</span></h4>
+          <p>File deletion, bulk operations, data exports</p>
+        </div>
+        <div class="risk-card risk-critical">
+          <h4>Critical <span class="risk-score">1.0</span></h4>
+          <p>Privilege escalation, recursive deletion, system directory access</p>
+        </div>
+      </div>
+
+      <h3 class="subsection-title">Risk Signals</h3>
+      <p>Actions can carry multiple risk signals that influence the final score:</p>
+      <div class="code-block">
+        <div class="code-header">
+          <span>Risk Signal Weights</span>
+        </div>
+        <pre><code>privilege_escalation    0.40    &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;
+destructive_action      0.35    &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;
+recursive_delete        0.35    &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;
+financial_transaction   0.30    &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;
+data_export             0.30    &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;
+file_deletion           0.30    &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;
+bulk_operation          0.25    &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;
+system_directory        0.25    &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;
+external_recipient      0.20    &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- How Location-Based Approval Works -->
+  <section class="section section-alt" id="location">
+    <div class="container">
+      <h2 class="section-title">How Location-Based Approval Works</h2>
+      <div class="location-explainer">
+        <div class="location-text">
+          <h3>The Vault Presence Model</h3>
+          <p>
+            AirVaults uses a <strong>geofenced vault</strong> model. When you create an MFA vault in SafeRoom,
+            you define a physical location and radius. The vault exists at that spot in the real world.
+          </p>
+          <p>
+            The SafeRoom app continuously reports your GPS coordinates to AirVaults. A <strong>Visit Tracker</strong>
+            backed by Redis maintains real-time state of whether you are inside or outside each vault's boundary.
+          </p>
+          <p>
+            When a challenge arrives, the server simply checks:
+            <em>"Is the vault owner currently inside this vault?"</em>
+            If yes, the action is approved. If no, it's denied. The decision is made server-side in milliseconds
+            &mdash; no round-trip to your phone needed.
+          </p>
+
+          <h3>Why This Works</h3>
+          <ul>
+            <li><strong>Zero friction</strong> &mdash; No pop-ups, no codes to type, no biometrics to scan</li>
+            <li><strong>Physical security</strong> &mdash; An attacker would need to be at your exact location</li>
+            <li><strong>Instant decisions</strong> &mdash; Sub-second approval latency</li>
+            <li><strong>Automatic</strong> &mdash; Walk into your office, approvals just work. Walk away, they stop</li>
+          </ul>
+
+          <h3>Mobile Override</h3>
+          <p>
+            Even after an automatic decision, you can override it from SafeRoom. The app shows pending challenges
+            and lets you manually approve or deny. This is useful if you step outside briefly or want to block
+            a specific action despite being in the vault.
+          </p>
+        </div>
+        <div class="location-visual">
+          <div class="vault-visual">
+            <div class="vault-ring"></div>
+            <div class="vault-ring ring-2"></div>
+            <div class="vault-ring ring-3"></div>
+            <div class="vault-center">
+              <span>VAULT</span>
+            </div>
+            <div class="vault-user inside">
+              <span>You</span>
+              <div class="vault-status approved">Approved</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ed25519 Device Auth -->
+  <section class="section" id="security">
+    <div class="container">
+      <h2 class="section-title">Security</h2>
+      <p class="section-subtitle">Ed25519 device authentication for gateway access</p>
+      <div class="security-content">
+        <p>
+          The Mist channel uses <strong>Ed25519 cryptographic signatures</strong> to authenticate with the OpenClaw gateway.
+          During setup, a key pair is generated and stored locally:
+        </p>
+        <div class="code-block">
+          <div class="code-header"><span>~/.openclaw/identity/</span></div>
+          <pre><code>~/.openclaw/identity/
+&#9500;&#9472;&#9472; device.json          <span class="t-muted"># Ed25519 key pair + device ID</span>
+&#9492;&#9472;&#9472; device-auth.json     <span class="t-muted"># Scoped access tokens</span></code></pre>
+        </div>
+        <p>
+          When the Mist channel connects to the gateway, it signs a payload containing its device ID, requested scopes,
+          and a timestamp. The gateway verifies the signature and grants the <code>operator.approvals</code> scope,
+          which allows the channel to resolve approval requests.
+        </p>
+        <p>
+          If the gateway requires a challenge-response (protocol v3), the channel receives a nonce, re-signs with the nonce
+          included, and sends back the proof. This prevents replay attacks.
+        </p>
+        <div class="security-features">
+          <div class="security-feature">
+            <strong>Device-bound keys</strong>
+            <p>Private keys never leave your machine</p>
+          </div>
+          <div class="security-feature">
+            <strong>Scoped access</strong>
+            <p>Channel only gets <code>operator.approvals</code></p>
+          </div>
+          <div class="security-feature">
+            <strong>Challenge-response</strong>
+            <p>Nonce-based replay protection</p>
+          </div>
+          <div class="security-feature">
+            <strong>Audit trail</strong>
+            <p>Every challenge is logged with decision + reason</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section-alt" id="faq">
+    <div class="container">
+      <h2 class="section-title">FAQ & Troubleshooting</h2>
+      <div class="faq-list">
+
+        <details class="faq-item">
+          <summary>What happens if I'm not in the vault when an action triggers?</summary>
+          <p>The challenge is automatically denied. The AI agent receives a "deny" decision and the action is blocked. You can also monitor denied challenges in <code>openclaw mfa status</code>.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Can I approve an action from my phone even if I'm outside the vault?</summary>
+          <p>Yes. SafeRoom shows pending challenges and lets you manually approve or deny regardless of your location. The automatic location check happens first, but your manual response can override it.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How accurate is the location check?</summary>
+          <p>It depends on your phone's GPS accuracy and the vault radius you configure. AirVaults uses a geohash-based system with multiple precision levels. For typical office or home use, a 50-100m radius works well.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>What if the AirVaults server is unreachable?</summary>
+          <p>If the Mist channel cannot reach the AirVaults API, the challenge creation fails and the approval times out. OpenClaw will deny the action by default (fail-closed). You can configure the timeout via <code>pollTimeoutMs</code>.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Does this work with multiple machines?</summary>
+          <p>Yes. Each machine gets its own device identity (Ed25519 key pair) and binds to the same MFA vault. Run <code>openclaw mfa</code> on each machine and scan the QR code with the same SafeRoom account.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>The setup wizard times out before I can scan the QR code</summary>
+          <p>The wizard waits 5 minutes. If it times out, just run <code>openclaw mfa</code> again. You can also use the manual bind command: <code>openclaw mfa bind mfa:bind:&lt;vault_uid&gt;:&lt;token&gt;</code> with the key shown in SafeRoom.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>I see "missing operator.approvals scope" errors</summary>
+          <p>This means the device auth handshake failed. Check that <code>~/.openclaw/identity/device.json</code> exists and contains valid keys. You can regenerate by deleting the identity files and running <code>openclaw mfa</code> again.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How do I check my vault status?</summary>
+          <p>Run <code>openclaw mfa status</code> to see your vault name, total challenges, approval/denial counts, and recent challenge history.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Is my location data sent to a third party?</summary>
+          <p>Your GPS coordinates are sent only to the AirVaults server. The server uses them to determine vault presence and does not share them with any third party. Location data is encrypted in transit via HTTPS.</p>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Waiting List -->
+  <section class="section" id="waitlist">
+    <div class="container">
+      <div class="waitlist-box">
+        <h2>Get Early Access to SafeRoom</h2>
+        <p>SafeRoom is the mobile app that powers location-based approvals. Sign up to be notified when it launches on iOS and Android.</p>
+        <form class="waitlist-form" id="waitlist-form" action="https://formspree.io/f/xpwzgkvn" method="POST">
+          <input type="email" name="email" placeholder="you@example.com" required autocomplete="email">
+          <button type="submit" class="btn btn-primary">Join Waiting List</button>
+        </form>
+        <p class="waitlist-note" id="waitlist-note">No spam. We'll only email you when SafeRoom is ready.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4><span class="logo-icon">&#9672;</span> Agentic Mist</h4>
+          <p>Location-based MFA for AI agent actions. An AirVaults + OpenClaw integration.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Links</h4>
+          <ul>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#install">Installation</a></li>
+            <li><a href="#config">Configuration</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Project</h4>
+          <ul>
+            <li><a href="https://github.com/percent-20/agentic-mist" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="https://github.com/percent-20/openclaw" target="_blank" rel="noopener">OpenClaw</a></li>
+            <li><a href="https://github.com/percent-20/airvaults" target="_blank" rel="noopener">AirVaults</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="https://github.com/percent-20/agentic-mist/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Percent-20. Built with care.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
