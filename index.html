@@ -38,12 +38,12 @@
     <div class="container">
       <div class="hero-badge">OpenClaw Plugin</div>
       <h1 class="hero-title">
-        MFA for AI agents.
+        Your agent deletes prod.<br>Were you even in the room?
       </h1>
       <p class="hero-subtitle">
-        Your agents act autonomously. Mist makes sure a human approves the risky parts.
-        Plug it into OpenClaw and get multi-factor authentication for any agent action &mdash;
-        no workflow changes, no friction for safe operations.
+        Mist adds real MFA to AI agent actions. Define a safe environment on your phone &mdash;
+        WiFi, time, place &mdash; and risky operations only execute when your context matches.
+        One plugin. Zero friction for everything else.
       </p>
       <div class="hero-actions">
         <a href="#install" class="btn btn-primary">Add Mist to OpenClaw</a>
@@ -57,10 +57,11 @@
           <span class="terminal-title">Terminal</span>
         </div>
         <div class="terminal-body">
-<pre><code><span class="t-prompt">$</span> openclaw exec <span class="t-string">"delete all staging data"</span>
-<span class="t-muted">&#9656; Risky action detected. MFA challenge sent...</span>
-<span class="t-muted">&#9656; Waiting for approval...</span>
-<span class="t-success">&#10003; Approved. Executing.</span></code></pre>
+<pre><code><span class="t-prompt">$</span> openclaw exec <span class="t-string">"drop the staging database"</span>
+<span class="t-muted">&#9656; Destructive action. MFA required.</span>
+<span class="t-muted">&#9656; Checking environment via SafeRoom...</span>
+<span class="t-success">&#10003; Home WiFi + office hours. Approved in 80ms.</span>
+<span class="t-muted">&#9656; Dropping database...</span></code></pre>
         </div>
       </div>
     </div>
