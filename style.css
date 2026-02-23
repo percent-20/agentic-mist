@@ -231,15 +231,32 @@ code {
   margin-bottom: 48px;
 }
 
+/* Hero Demo (terminal + phone) */
+.hero-demo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  max-width: 780px;
+  margin: 0 auto;
+}
+
 /* Terminal */
 .hero-terminal {
-  max-width: 520px;
-  margin: 0 auto;
+  flex: 1;
+  min-width: 0;
   border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
   text-align: left;
+}
+
+.hero-phone img {
+  display: block;
+  width: 220px;
+  height: auto;
+  filter: drop-shadow(0 8px 32px rgba(0, 0, 0, 0.4));
 }
 
 .terminal-bar {
@@ -763,6 +780,13 @@ code {
   .nav-links a:last-child { border-bottom: none; }
 
   .hero { padding: 100px 0 50px; }
+
+  .hero-demo {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .hero-phone { display: none; }
 
   .hero-actions {
     flex-direction: column;
