@@ -611,6 +611,42 @@ code {
 }
 
 /* ========================================
+   Tweets Section
+   ======================================== */
+.tweets-section {
+  overflow: hidden;
+}
+
+.tweets-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-light) transparent;
+  padding: 0 28px 16px;
+  margin-top: 40px;
+}
+.tweets-scroll::-webkit-scrollbar { height: 6px; }
+.tweets-scroll::-webkit-scrollbar-track { background: transparent; }
+.tweets-scroll::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 3px; }
+
+.tweets-track {
+  display: flex;
+  gap: 20px;
+  min-width: max-content;
+  padding-bottom: 4px;
+}
+
+.tweet-embed {
+  flex-shrink: 0;
+  width: 360px;
+  min-height: 200px;
+}
+
+.tweet-embed .twitter-tweet {
+  margin: 0 !important;
+}
+
+/* ========================================
    Flow (How It Works)
    ======================================== */
 .flow {
