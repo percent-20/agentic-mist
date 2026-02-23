@@ -15,7 +15,7 @@
       'rgba(34, 197, 94, ',    // green
       'rgba(233, 213, 255, ',  // light purple
     ];
-    var maxBubbles = 25;
+    var maxBubbles = 50;
 
     function spawnBubble() {
       if (bubblesContainer.children.length >= maxBubbles) return;
@@ -23,11 +23,11 @@
       var bubble = document.createElement('div');
       bubble.className = 'bubble';
 
-      var size = Math.random() * 30 + 6; // 6-36px
+      var size = Math.random() * 60 + 10; // 10-70px
       var x = Math.random() * 100;
-      var duration = Math.random() * 12 + 8; // 8-20s
-      var delay = Math.random() * 2;
-      var opacity = Math.random() * 0.12 + 0.06; // 0.06-0.18
+      var duration = Math.random() * 14 + 10; // 10-24s
+      var delay = Math.random() * 3;
+      var opacity = Math.random() * 0.15 + 0.08; // 0.08-0.23
       var color = colors[Math.floor(Math.random() * colors.length)];
 
       bubble.style.width = size + 'px';
@@ -48,14 +48,14 @@
     }
 
     // Initial burst
-    for (var i = 0; i < 12; i++) { spawnBubble(); }
+    for (var i = 0; i < 20; i++) { spawnBubble(); }
 
     // Continuous spawning
     setInterval(function () {
       if (document.visibilityState !== 'hidden') {
         spawnBubble();
       }
-    }, 1500);
+    }, 800);
   }
 
   // ========================================
