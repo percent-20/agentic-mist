@@ -60,37 +60,77 @@
   // ========================================
   var carousel = document.getElementById('tweet-carousel');
   if (carousel) {
-    var slides = carousel.querySelectorAll('.tweet-slide');
+    var viewport = document.getElementById('tweet-viewport');
+    var slides = viewport.querySelectorAll('.tweet-slide');
     var dots = carousel.querySelectorAll('.tweet-dot');
     var current = 0;
+    var animating = false;
     var timer = null;
 
-    function showSlide(index) {
-      slides.forEach(function (s) { s.classList.remove('active'); });
+    function showSlide(next) {
+      if (animating || next === current) return;
+      animating = true;
+
+      var outgoing = slides[current];
+      var incoming = slides[next];
+
+      // Position incoming off-screen right
+      incoming.style.transition = 'none';
+      incoming.classList.remove('exit-left');
+      incoming.style.transform = 'translateX(60px)';
+      incoming.style.opacity = '0';
+      incoming.classList.add('active');
+
+      // Force reflow
+      incoming.offsetHeight;
+
+      // Slide outgoing left, slide incoming in
+      incoming.style.transition = '';
+      outgoing.classList.add('exit-left');
+      incoming.style.transform = '';
+      incoming.style.opacity = '';
+
       dots.forEach(function (d) { d.classList.remove('active'); });
-      current = index % slides.length;
-      slides[current].classList.add('active');
-      dots[current].classList.add('active');
+      dots[next].classList.add('active');
+
+      setTimeout(function () {
+        outgoing.classList.remove('active', 'exit-left');
+        outgoing.style.transform = '';
+        outgoing.style.opacity = '';
+        current = next;
+        animating = false;
+      }, 500);
     }
 
     function nextSlide() {
-      showSlide(current + 1);
+      showSlide((current + 1) % slides.length);
     }
 
     function startTimer() {
+      clearInterval(timer);
       timer = setInterval(nextSlide, 5000);
     }
 
     // Click dots to jump
     dots.forEach(function (dot) {
       dot.addEventListener('click', function () {
+        var idx = parseInt(dot.getAttribute('data-index'), 10);
         clearInterval(timer);
-        showSlide(parseInt(dot.getAttribute('data-index'), 10));
+        showSlide(idx);
         startTimer();
       });
     });
 
-    startTimer();
+    // Wait for Twitter widgets to render before starting
+    function waitForWidgets() {
+      var rendered = carousel.querySelectorAll('.twitter-tweet-rendered, twitter-widget, .twitter-tweet iframe');
+      if (rendered.length > 0) {
+        startTimer();
+      } else {
+        setTimeout(waitForWidgets, 500);
+      }
+    }
+    waitForWidgets();
   }
 
   // ========================================
