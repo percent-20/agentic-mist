@@ -98,10 +98,11 @@
               <span>Unprotected agent actions</span>
             </div>
             <div class="danger-list">
+              <div class="danger-item"><code>"Refund all orders from the last 24 hours"</code><span class="danger-tag">financial</span></div>
               <div class="danger-item"><code>rm -rf /var/data/*</code><span class="danger-tag">destructive</span></div>
-              <div class="danger-item"><code>curl -X POST payments/refund</code><span class="danger-tag">financial</span></div>
-              <div class="danger-item"><code>ALTER USER admin SET ROLE superuser</code><span class="danger-tag">privilege</span></div>
+              <div class="danger-item"><code>"Send an apology email to all customers"</code><span class="danger-tag">broadcast</span></div>
               <div class="danger-item"><code>kubectl delete namespace prod</code><span class="danger-tag">infrastructure</span></div>
+              <div class="danger-item"><code>"Grant admin access to the new contractor"</code><span class="danger-tag">privilege</span></div>
             </div>
           </div>
         </div>
