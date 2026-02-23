@@ -1,113 +1,88 @@
 // Mist Landing Page
-// Scroll reveals, terminal typing, mobile nav, copy buttons, waitlist
-
 (function () {
   'use strict';
 
   // ========================================
-  // Scroll Reveal (IntersectionObserver)
+  // Scroll Reveal
   // ========================================
-  var revealElements = document.querySelectorAll('.reveal');
+  var reveals = document.querySelectorAll('.reveal');
 
   if ('IntersectionObserver' in window) {
-    var observer = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
-    );
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
 
-    revealElements.forEach(function (el) {
-      observer.observe(el);
-    });
+    reveals.forEach(function (el) { io.observe(el); });
   } else {
-    // Fallback: show everything
-    revealElements.forEach(function (el) {
-      el.classList.add('visible');
-    });
+    reveals.forEach(function (el) { el.classList.add('visible'); });
   }
 
   // ========================================
   // Terminal Typing Effect
   // ========================================
-  var terminalBody = document.getElementById('terminal-body');
+  var terminal = document.getElementById('terminal-body');
 
-  if (terminalBody) {
-    var lines = terminalBody.querySelectorAll('.t-line');
+  if (terminal) {
+    var lines = terminal.querySelectorAll('.t-line');
+    var speeds = [50, 35, 35, 45, 35];
+    var pause = 350;
 
-    if (lines.length > 0) {
-      // Hide all lines initially
-      lines.forEach(function (line) {
-        line.style.width = '0';
-        line.style.borderRight = 'none';
+    if (lines.length) {
+      // Reset
+      lines.forEach(function (l) {
+        l.style.width = '0';
+        l.style.borderRight = 'none';
       });
 
-      var lineIndex = 0;
-      var delays = [60, 40, 40, 50, 40]; // ms per character per line
-      var pauseBetween = 300; // ms pause between lines
+      function typeNext(i) {
+        if (i >= lines.length) return;
+        var line = lines[i];
+        var chars = line.textContent.length;
+        var speed = speeds[i] || 35;
+        var dur = chars * speed;
 
-      function getTextLength(el) {
-        return el.textContent.length;
-      }
-
-      function typeLine(index) {
-        if (index >= lines.length) return;
-
-        var line = lines[index];
-        var len = getTextLength(line);
-        var charDelay = delays[index] || 40;
-        var duration = len * charDelay;
-
-        // Show cursor
-        line.style.borderRight = '2px solid #8b5cf6';
-        line.style.transition = 'width ' + duration + 'ms steps(' + len + ', end)';
+        line.classList.add('typing');
+        line.style.transition = 'width ' + dur + 'ms steps(' + chars + ', end)';
         line.style.width = '100%';
 
         setTimeout(function () {
-          // Remove cursor
-          line.style.borderRight = 'none';
+          line.classList.remove('typing');
           line.classList.add('typed');
-
-          // Type next line after pause
-          setTimeout(function () {
-            typeLine(index + 1);
-          }, pauseBetween);
-        }, duration);
+          line.style.borderRight = 'none';
+          setTimeout(function () { typeNext(i + 1); }, pause);
+        }, dur);
       }
 
-      // Start typing when terminal is visible
-      var terminalEl = terminalBody.closest('.hero-terminal');
-      if (terminalEl && 'IntersectionObserver' in window) {
-        var termObserver = new IntersectionObserver(
-          function (entries) {
-            entries.forEach(function (entry) {
-              if (entry.isIntersecting) {
-                setTimeout(function () { typeLine(0); }, 500);
-                termObserver.unobserve(entry.target);
-              }
-            });
-          },
-          { threshold: 0.3 }
-        );
-        termObserver.observe(terminalEl);
+      // Wait until terminal is visible
+      var termEl = terminal.closest('.hero-terminal');
+      if (termEl && 'IntersectionObserver' in window) {
+        var tio = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              setTimeout(function () { typeNext(0); }, 600);
+              tio.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.25 });
+        tio.observe(termEl);
       } else {
-        // Fallback: show all lines
-        lines.forEach(function (line) {
-          line.style.width = '100%';
-          line.style.borderRight = 'none';
+        lines.forEach(function (l) {
+          l.style.width = '100%';
+          l.classList.add('typed');
         });
       }
     }
   }
 
   // ========================================
-  // Mobile Nav Toggle
+  // Nav
   // ========================================
+  var nav = document.getElementById('nav');
   var toggle = document.getElementById('nav-toggle');
   var links = document.getElementById('nav-links');
 
@@ -115,7 +90,6 @@
     toggle.addEventListener('click', function () {
       links.classList.toggle('open');
     });
-
     links.querySelectorAll('a').forEach(function (a) {
       a.addEventListener('click', function () {
         links.classList.remove('open');
@@ -123,20 +97,9 @@
     });
   }
 
-  // ========================================
-  // Nav Scroll Effect
-  // ========================================
-  var nav = document.getElementById('nav');
   if (nav) {
-    var lastScroll = 0;
     window.addEventListener('scroll', function () {
-      var scrollY = window.scrollY;
-      if (scrollY > 20) {
-        nav.classList.add('scrolled');
-      } else {
-        nav.classList.remove('scrolled');
-      }
-      lastScroll = scrollY;
+      nav.classList.toggle('scrolled', window.scrollY > 30);
     }, { passive: true });
   }
 
@@ -147,13 +110,12 @@
     btn.addEventListener('click', function () {
       var text = btn.getAttribute('data-copy');
       if (!text) return;
-
       navigator.clipboard.writeText(text).then(function () {
-        var original = btn.textContent;
+        var orig = btn.textContent;
         btn.textContent = 'Copied!';
         btn.classList.add('copied');
         setTimeout(function () {
-          btn.textContent = original;
+          btn.textContent = orig;
           btn.classList.remove('copied');
         }, 2000);
       });
@@ -161,7 +123,7 @@
   });
 
   // ========================================
-  // Waiting List Form (Formspree)
+  // Waitlist Form
   // ========================================
   var form = document.getElementById('waitlist-form');
   var note = document.getElementById('waitlist-note');
@@ -169,38 +131,27 @@
   if (form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-
-      var data = new FormData(form);
-      var submitBtn = form.querySelector('button[type="submit"]');
-      if (submitBtn) {
-        submitBtn.textContent = 'Sending...';
-        submitBtn.disabled = true;
-      }
+      var btn = form.querySelector('button[type="submit"]');
+      if (btn) { btn.textContent = 'Sending...'; btn.disabled = true; }
 
       fetch(form.action, {
         method: 'POST',
-        body: data,
+        body: new FormData(form),
         headers: { Accept: 'application/json' },
       })
         .then(function (res) {
           if (res.ok) {
             form.style.display = 'none';
-            note.textContent = "You're on the list! We'll email you when SafeRoom is ready.";
+            note.textContent = "You're on the list. We'll email you when SafeRoom ships.";
             note.className = 'waitlist-note waitlist-success';
           } else {
-            note.textContent = 'Something went wrong. Please try again.';
-            if (submitBtn) {
-              submitBtn.textContent = 'Join Waiting List';
-              submitBtn.disabled = false;
-            }
+            note.textContent = 'Something went wrong. Try again.';
+            if (btn) { btn.textContent = 'Join Waiting List'; btn.disabled = false; }
           }
         })
         .catch(function () {
-          note.textContent = 'Network error. Please try again.';
-          if (submitBtn) {
-            submitBtn.textContent = 'Join Waiting List';
-            submitBtn.disabled = false;
-          }
+          note.textContent = 'Network error. Try again.';
+          if (btn) { btn.textContent = 'Join Waiting List'; btn.disabled = false; }
         });
     });
   }

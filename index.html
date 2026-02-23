@@ -24,7 +24,8 @@
         <span></span><span></span><span></span>
       </button>
       <div class="nav-links" id="nav-links">
-        <a href="#how-it-works">How It Works</a>
+        <a href="#problem">Why</a>
+        <a href="#how-it-works">How</a>
         <a href="#install">Install</a>
         <a href="#privacy">Privacy</a>
         <a href="#faq">FAQ</a>
@@ -43,13 +44,18 @@
         The missing approval step<br class="mobile-hide"> for autonomous agents.
       </h1>
       <p class="hero-subtitle reveal">
-        Mist is an OpenClaw plugin that adds MFA to AI agent actions.
-        Your phone knows your WiFi, your schedule, your environment.
-        Mist uses those signals to approve or block risky operations automatically.
+        Your agent can delete databases, call external APIs, and escalate privileges.
+        Mist makes sure a human is in the room when it does.
       </p>
       <div class="hero-actions reveal">
-        <a href="#install" class="btn btn-primary">Add Mist to OpenClaw</a>
-        <a href="https://github.com/percent-20/openclaw-mfa-gate" class="btn btn-secondary" target="_blank" rel="noopener">View on GitHub</a>
+        <a href="#install" class="btn btn-primary">
+          <span>Get Started</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="https://github.com/percent-20/openclaw-mfa-gate" class="btn btn-secondary" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          <span>View Source</span>
+        </a>
       </div>
       <div class="hero-demo reveal">
         <div class="hero-terminal">
@@ -61,80 +67,132 @@
           </div>
           <div class="terminal-body" id="terminal-body">
 <pre><code><span class="t-line"><span class="t-prompt">$</span> openclaw exec <span class="t-string">"drop the staging database"</span></span>
-<span class="t-line"><span class="t-muted">&#9656; Destructive action. MFA required.</span></span>
-<span class="t-line"><span class="t-muted">&#9656; Checking environment via SafeRoom...</span></span>
+<span class="t-line"><span class="t-muted">&#9656; Destructive action detected. MFA required.</span></span>
+<span class="t-line"><span class="t-muted">&#9656; Challenging SafeRoom...</span></span>
 <span class="t-line"><span class="t-success">&#10003; Home WiFi + office hours. Approved in 80ms.</span></span>
-<span class="t-line"><span class="t-muted">&#9656; Dropping database...</span></span></code></pre>
+<span class="t-line"><span class="t-muted">&#9656; Executing...</span></span></code></pre>
           </div>
         </div>
         <div class="hero-phone">
-          <img src="assets/saferoom-authenticated.png" alt="SafeRoom app showing Authenticated status" width="260" height="auto">
+          <img src="assets/saferoom-authenticated.png" alt="SafeRoom showing Authenticated" width="260" height="auto">
         </div>
       </div>
     </div>
   </section>
 
-  <!-- How It Works -->
-  <section class="section" id="how-it-works">
+  <!-- Problem -->
+  <section class="section" id="problem">
     <div class="container">
-      <h2 class="section-title reveal">How It Works</h2>
-      <p class="section-subtitle reveal">Mist sits between your agent and dangerous operations</p>
-      <div class="steps-grid">
-        <div class="step-card reveal">
-          <div class="step-number">1</div>
-          <h3>Agent triggers a risky action</h3>
-          <p>OpenClaw's approval engine detects when an agent attempts something that needs human sign-off: file deletion, external API calls, privilege changes.</p>
+      <div class="problem-layout">
+        <div class="problem-text">
+          <p class="section-eyebrow reveal">The problem</p>
+          <h2 class="section-title-left reveal">AI agents are getting root access. Nobody is watching.</h2>
+          <p class="problem-body reveal">You gave your agent permission to deploy, delete, and call APIs on your behalf. It runs 24/7. It doesn't sleep. It doesn't double-check.</p>
+          <p class="problem-body reveal">One hallucinated command. One misconfigured prompt. That's all it takes.</p>
+          <p class="problem-body problem-highlight reveal">Every serious agent framework will need an approval layer. Mist is that layer.</p>
         </div>
-        <div class="step-arrow reveal">&#10132;</div>
-        <div class="step-card reveal">
-          <div class="step-number">2</div>
-          <h3>Mist checks your environment</h3>
-          <p>The action is paused. Mist checks whether you're in a safe environment that you defined: the right WiFi, the right time, the right place. All verified from encrypted signals on your phone.</p>
-        </div>
-        <div class="step-arrow reveal">&#10132;</div>
-        <div class="step-card reveal">
-          <div class="step-number">3</div>
-          <h3>Auto-approve or escalate</h3>
-          <p>If your environment matches: approved instantly, no interruption. If it doesn't: you get a push notification on SafeRoom to review and decide. Seconds, not minutes.</p>
+        <div class="problem-visual reveal">
+          <div class="danger-card">
+            <div class="danger-header">
+              <span class="danger-dot"></span>
+              <span>Unprotected agent actions</span>
+            </div>
+            <div class="danger-list">
+              <div class="danger-item"><code>rm -rf /var/data/*</code><span class="danger-tag">destructive</span></div>
+              <div class="danger-item"><code>curl -X POST payments/refund</code><span class="danger-tag">financial</span></div>
+              <div class="danger-item"><code>ALTER USER admin SET ROLE superuser</code><span class="danger-tag">privilege</span></div>
+              <div class="danger-item"><code>kubectl delete namespace prod</code><span class="danger-tag">infrastructure</span></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Why Mist -->
-  <section class="section section-alt" id="why">
+  <!-- Solution (How It Works) -->
+  <section class="section section-alt" id="how-it-works">
     <div class="container">
-      <h2 class="section-title reveal">Why Mist</h2>
+      <p class="section-eyebrow reveal">The solution</p>
+      <h2 class="section-title reveal">Three steps between your agent and disaster</h2>
+      <p class="section-subtitle reveal">Mist intercepts risky actions and checks if you're present before executing</p>
+      <div class="flow">
+        <div class="flow-step reveal">
+          <div class="flow-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 3L4 8v6c0 5.55 4.27 10.74 10 12 5.73-1.26 10-6.45 10-12V8L14 3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M10 14l3 3 5-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="flow-num">01</div>
+          <h3>Agent hits a guardrail</h3>
+          <p>OpenClaw detects a risky action: file deletion, API call, privilege change. The execution is paused.</p>
+        </div>
+        <div class="flow-connector reveal"><div class="flow-line"></div></div>
+        <div class="flow-step reveal">
+          <div class="flow-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="7" y="3" width="14" height="22" rx="3" stroke="currentColor" stroke-width="1.5"/><circle cx="14" cy="20" r="1.5" fill="currentColor"/><path d="M11 3h6v2a1 1 0 01-1 1h-4a1 1 0 01-1-1V3z" fill="currentColor"/></svg>
+          </div>
+          <div class="flow-num">02</div>
+          <h3>Your phone verifies presence</h3>
+          <p>SafeRoom checks your environment: WiFi, time, location. All encrypted on-device. The server sees only proofs.</p>
+        </div>
+        <div class="flow-connector reveal"><div class="flow-line"></div></div>
+        <div class="flow-step reveal">
+          <div class="flow-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M7 14l5 5L21 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="flow-num">03</div>
+          <h3>Approve or deny in milliseconds</h3>
+          <p>Safe environment? Approved instantly. Not safe? You get a push notification to review. No context switches, no slowdowns.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="section" id="features">
+    <div class="container">
+      <p class="section-eyebrow reveal">Why Mist</p>
+      <h2 class="section-title reveal">Built for developers who ship agents to production</h2>
       <div class="features-grid">
-        <div class="feature-card reveal">
-          <div class="feature-icon">&#9889;</div>
-          <strong>Human-in-the-loop, not human-in-the-way</strong>
-          <p>Safe operations flow through untouched. Only risky actions pause for approval. Your agents stay fast.</p>
+        <div class="feature-card feature-card-large reveal">
+          <div class="feature-card-inner">
+            <div class="feature-label">Speed</div>
+            <h3>Human-in-the-loop, not human-in-the-way</h3>
+            <p>Safe operations flow through untouched. Only risky actions pause for approval. Auto-approve takes <strong>under 100ms</strong>. Your agents stay fast.</p>
+            <div class="feature-metric">
+              <span class="metric-value">80<span class="metric-unit">ms</span></span>
+              <span class="metric-label">avg. approval time</span>
+            </div>
+          </div>
         </div>
         <div class="feature-card reveal">
-          <div class="feature-icon">&#128274;</div>
-          <strong>Privacy by design</strong>
-          <p>All sensitive data is hashed and encrypted on your device before it ever leaves your phone. No raw data is transmitted.</p>
+          <div class="feature-card-inner">
+            <div class="feature-label">Privacy</div>
+            <h3>Zero-knowledge verification</h3>
+            <p>All sensitive data is hashed and encrypted on your phone before transmission. The server never sees raw WiFi names, coordinates, or device IDs.</p>
+          </div>
         </div>
         <div class="feature-card reveal">
-          <div class="feature-icon">&#9881;</div>
-          <strong>Three lines of config</strong>
-          <p>Install the plugin, scan a QR code, restart. Mist works with your existing OpenClaw setup. No new infrastructure.</p>
+          <div class="feature-card-inner">
+            <div class="feature-label">Setup</div>
+            <h3>Three lines of config</h3>
+            <p>Install the plugin, scan a QR code, restart OpenClaw. No new infrastructure. No dependencies. Works with your existing setup.</p>
+          </div>
         </div>
         <div class="feature-card reveal">
-          <div class="feature-icon">&#128272;</div>
-          <strong>Cryptographic device auth</strong>
-          <p>Ed25519 signatures bind each machine to your identity. Scoped access tokens. Challenge-response replay protection.</p>
+          <div class="feature-card-inner">
+            <div class="feature-label">Security</div>
+            <h3>Cryptographic device binding</h3>
+            <p>Ed25519 key pairs bind each machine to your identity. Scoped tokens. Challenge-response with replay protection. Fails closed on timeout.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Install -->
-  <section class="section" id="install">
+  <section class="section section-alt" id="install">
     <div class="container">
-      <h2 class="section-title reveal">Get Started</h2>
-      <p class="section-subtitle reveal">Up and running in a few minutes</p>
+      <p class="section-eyebrow reveal">Get started</p>
+      <h2 class="section-title reveal">Up and running in five minutes</h2>
 
       <!-- Step 1 -->
       <div class="install-step reveal">
@@ -157,7 +215,7 @@
           <span class="install-step-num">2</span>
           <h3>Pair with SafeRoom and define your safe environment</h3>
         </div>
-        <p>Run the setup wizard. It generates a QR code. Scan it with the SafeRoom app to bind your vault.</p>
+        <p>Run the setup wizard. It generates a QR code. Scan it with SafeRoom to bind your vault.</p>
         <div class="code-block">
           <div class="code-header">
             <span>bash</span>
@@ -165,7 +223,7 @@
           </div>
           <pre><code>openclaw mfa</code></pre>
         </div>
-        <p>Once paired, SafeRoom asks you to define a <strong>safe environment</strong>: the conditions under which agent actions should be auto-approved. You combine signals from your phone:</p>
+        <p>Once paired, SafeRoom asks you to define a <strong>safe environment</strong>: the conditions under which agent actions auto-approve. You combine signals from your phone:</p>
         <div class="env-example">
           <div class="env-example-header">Example safe environment</div>
           <div class="env-rules">
@@ -182,14 +240,14 @@
               <span>At <strong>home</strong></span>
             </div>
           </div>
-          <p class="env-caption">When all conditions match, risky actions are approved without interrupting you. When they don't, SafeRoom sends you a notification to review.</p>
+          <p class="env-caption">All conditions match? Approved silently. They don't? SafeRoom sends a push notification for manual review.</p>
         </div>
-        <p>You can define multiple environments (home, office, caf&eacute;) with different rules and time windows. All signals are hashed and encrypted on your phone. The server never sees raw WiFi names, locations, or device identifiers.</p>
+        <p>Define multiple environments (home, office, caf&eacute;) with different rules and time windows. All signals are hashed and encrypted on your phone. The server never sees raw data.</p>
         <div class="app-notice">
           <div class="app-notice-icon">&#128241;</div>
           <div>
             <strong>SafeRoom is in early access</strong>
-            <p>The companion app isn't on stores yet. <a href="#waitlist">Join the waiting list</a> to get notified.</p>
+            <p>The companion app isn't on stores yet. <a href="#waitlist">Join the waiting list</a> to get notified when it launches.</p>
           </div>
         </div>
       </div>
@@ -233,47 +291,46 @@
           </div>
           <pre><code>openclaw restart</code></pre>
         </div>
-        <p class="step-note">That's it. Risky agent actions will now require your approval via SafeRoom.</p>
+        <p class="step-note">That's it. Every risky agent action now requires your approval via SafeRoom.</p>
       </div>
     </div>
   </section>
 
   <!-- Privacy -->
-  <section class="section section-alt" id="privacy">
+  <section class="section" id="privacy">
     <div class="container">
-      <h2 class="section-title reveal">Privacy First</h2>
-      <p class="section-subtitle reveal">Your data never leaves your device in raw form</p>
-      <div class="privacy-content">
-        <div class="privacy-points">
-          <div class="privacy-point reveal">
-            <div class="privacy-icon">&#128737;</div>
-            <strong>Hashed and encrypted on-device</strong>
-            <p>SafeRoom hashes and encrypts all sensitive data locally on your phone before anything is transmitted. The server never sees raw coordinates, identifiers, or personal data.</p>
-          </div>
-          <div class="privacy-point reveal">
-            <div class="privacy-icon">&#128273;</div>
-            <strong>Device-bound keys</strong>
-            <p>Mist generates Ed25519 key pairs that stay on your machine. Private keys are never transmitted. Each device has its own cryptographic identity.</p>
-          </div>
-          <div class="privacy-point reveal">
-            <div class="privacy-icon">&#128683;</div>
-            <strong>No third-party tracking</strong>
-            <p>No analytics, no ad networks, no data sharing. The only communication is between your devices and the Mist service.</p>
-          </div>
+      <p class="section-eyebrow reveal">Privacy</p>
+      <h2 class="section-title reveal">Your data never leaves your device in raw form</h2>
+      <div class="privacy-grid">
+        <div class="privacy-card reveal">
+          <div class="privacy-num">01</div>
+          <h3>Encrypted on-device</h3>
+          <p>SafeRoom hashes and encrypts all sensitive data locally on your phone. The server never sees raw coordinates, WiFi names, or device identifiers.</p>
+        </div>
+        <div class="privacy-card reveal">
+          <div class="privacy-num">02</div>
+          <h3>Device-bound keys</h3>
+          <p>Ed25519 key pairs that stay on your machine. Private keys are never transmitted. Each device has its own cryptographic identity.</p>
+        </div>
+        <div class="privacy-card reveal">
+          <div class="privacy-num">03</div>
+          <h3>No third-party tracking</h3>
+          <p>No analytics. No ad networks. No data sharing. The only communication is between your devices and the Mist service.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- FAQ -->
-  <section class="section" id="faq">
+  <section class="section section-alt" id="faq">
     <div class="container">
-      <h2 class="section-title reveal">FAQ</h2>
+      <p class="section-eyebrow reveal">FAQ</p>
+      <h2 class="section-title reveal">Common questions</h2>
       <div class="faq-list reveal">
 
         <details class="faq-item">
           <summary>What kinds of actions trigger MFA?</summary>
-          <p>That's up to your OpenClaw configuration. Typically: file deletion, external API calls, privilege escalation, bulk operations, and anything else you define as risky. Safe, read-only operations pass through without interruption.</p>
+          <p>That's up to your OpenClaw configuration. Typically: file deletion, external API calls, privilege escalation, bulk operations, and anything you define as risky. Safe, read-only operations pass through.</p>
         </details>
 
         <details class="faq-item">
@@ -283,7 +340,7 @@
 
         <details class="faq-item">
           <summary>What happens if the server is unreachable?</summary>
-          <p>Mist fails closed. If the challenge can't be created or the response times out, the action is denied by default. You can configure the timeout window in your OpenClaw settings.</p>
+          <p>Mist fails closed. If the challenge can't be created or the response times out, the action is denied by default. You can configure the timeout in your OpenClaw settings.</p>
         </details>
 
         <details class="faq-item">
@@ -301,16 +358,17 @@
   </section>
 
   <!-- Waiting List -->
-  <section class="section section-alt" id="waitlist">
+  <section class="section" id="waitlist">
     <div class="container">
       <div class="waitlist-box reveal">
-        <h2>Get Early Access</h2>
-        <p>SafeRoom, the companion app that powers Mist approvals, is coming soon to iOS and Android.</p>
+        <p class="section-eyebrow">Early access</p>
+        <h2>Be the first to try SafeRoom</h2>
+        <p>The companion app that powers Mist approvals is coming to iOS and Android. Leave your email and we'll let you know.</p>
         <form class="waitlist-form" id="waitlist-form" action="https://formspree.io/f/xpwzgkvn" method="POST">
           <input type="email" name="email" placeholder="you@example.com" required autocomplete="email">
           <button type="submit" class="btn btn-primary">Join Waiting List</button>
         </form>
-        <p class="waitlist-note" id="waitlist-note">No spam. One email when it's ready.</p>
+        <p class="waitlist-note" id="waitlist-note">No spam. One email when it ships.</p>
       </div>
     </div>
   </section>
@@ -320,8 +378,7 @@
     <div class="container">
       <div class="footer-inner">
         <div class="footer-left">
-          <span class="logo-icon">&#9672;</span> <strong>Mist</strong> / MFA for AI agents.
-          <span class="footer-sep">A <a href="https://percent-20.com" target="_blank" rel="noopener">Percent-20</a> project.</span>
+          <span class="logo-icon">&#9672;</span> <strong>Mist</strong> <span class="footer-sep">A <a href="https://percent-20.com" target="_blank" rel="noopener">Percent-20</a> project.</span>
         </div>
         <div class="footer-links">
           <a href="https://github.com/percent-20/openclaw-mfa-gate" target="_blank" rel="noopener">GitHub</a>
