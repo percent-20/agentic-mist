@@ -15,18 +15,15 @@
       'rgba(34, 197, 94, ',    // green
       'rgba(233, 213, 255, ',  // light purple
     ];
-    var maxBubbles = 50;
+    var bubbleCount = 40;
 
-    function spawnBubble() {
-      if (bubblesContainer.children.length >= maxBubbles) return;
-
+    function spawnBubble(immediate) {
       var bubble = document.createElement('div');
       bubble.className = 'bubble';
 
-      var size = Math.random() * 60 + 10; // 10-70px
+      var size = Math.random() * 50 + 8; // 8-58px
       var x = Math.random() * 100;
-      var duration = Math.random() * 14 + 10; // 10-24s
-      var delay = Math.random() * 3;
+      var duration = Math.random() * 8 + 5; // 5-13s (faster)
       var opacity = Math.random() * 0.15 + 0.08; // 0.08-0.23
       var color = colors[Math.floor(Math.random() * colors.length)];
 
@@ -34,28 +31,28 @@
       bubble.style.height = size + 'px';
       bubble.style.left = x + '%';
       bubble.style.background = color + (opacity * 5) + ')';
-      bubble.style.boxShadow = '0 0 ' + (size * 3) + 'px ' + color + (opacity * 2) + ')';
+      bubble.style.boxShadow = '0 0 ' + (size * 2) + 'px ' + color + (opacity * 2) + ')';
       bubble.style.setProperty('--bubble-opacity', opacity);
       bubble.style.animationDuration = duration + 's';
-      bubble.style.animationDelay = delay + 's';
+
+      // For initial load, start bubbles at random positions in the rise
+      if (immediate) {
+        bubble.style.animationDelay = -(Math.random() * duration) + 's';
+      }
 
       bubblesContainer.appendChild(bubble);
 
-      // Remove when animation ends
+      // When it reaches the top, remove and spawn a new one from bottom
       bubble.addEventListener('animationend', function () {
         bubble.remove();
+        if (document.visibilityState !== 'hidden') {
+          spawnBubble(false);
+        }
       });
     }
 
-    // Initial burst
-    for (var i = 0; i < 20; i++) { spawnBubble(); }
-
-    // Continuous spawning
-    setInterval(function () {
-      if (document.visibilityState !== 'hidden') {
-        spawnBubble();
-      }
-    }, 800);
+    // Initial burst — stagger across the full rise so the screen is full immediately
+    for (var i = 0; i < bubbleCount; i++) { spawnBubble(true); }
   }
 
   // ========================================

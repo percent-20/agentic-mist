@@ -91,7 +91,7 @@ code {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 0;
+  z-index: 2;
   overflow: hidden;
 }
 
@@ -120,14 +120,15 @@ code {
   }
 }
 
-/* All page content above bubbles */
-.nav,
+/* Bubbles float above section backgrounds but below text */
+.nav {
+  z-index: 100; /* nav stays on top */
+}
 .hero,
 .section,
 .privacy-section,
 .footer {
   position: relative;
-  z-index: 1;
 }
 
 /* ========================================
