@@ -56,74 +56,42 @@
   }
 
   // ========================================
-  // Tweet Carousel
+  // Tweet Carousel (sliding window)
   // ========================================
   var carousel = document.getElementById('tweet-carousel');
   if (carousel) {
-    var viewport = document.getElementById('tweet-viewport');
-    var slides = viewport.querySelectorAll('.tweet-slide');
+    var track = document.getElementById('tweet-track');
+    var slides = track.querySelectorAll('.tweet-slide');
     var dots = carousel.querySelectorAll('.tweet-dot');
     var current = 0;
-    var animating = false;
+    var total = slides.length;
     var timer = null;
 
-    function showSlide(next) {
-      if (animating || next === current) return;
-      animating = true;
-
-      var outgoing = slides[current];
-      var incoming = slides[next];
-
-      // Position incoming off-screen right
-      incoming.style.transition = 'none';
-      incoming.classList.remove('exit-left');
-      incoming.style.transform = 'translateX(60px)';
-      incoming.style.opacity = '0';
-      incoming.classList.add('active');
-
-      // Force reflow
-      incoming.offsetHeight;
-
-      // Slide outgoing left, slide incoming in
-      incoming.style.transition = '';
-      outgoing.classList.add('exit-left');
-      incoming.style.transform = '';
-      incoming.style.opacity = '';
-
+    function goTo(index) {
+      current = ((index % total) + total) % total;
+      track.style.transform = 'translateX(-' + (current * 100) + '%)';
       dots.forEach(function (d) { d.classList.remove('active'); });
-      dots[next].classList.add('active');
-
-      setTimeout(function () {
-        outgoing.classList.remove('active', 'exit-left');
-        outgoing.style.transform = '';
-        outgoing.style.opacity = '';
-        current = next;
-        animating = false;
-      }, 500);
-    }
-
-    function nextSlide() {
-      showSlide((current + 1) % slides.length);
+      dots[current].classList.add('active');
     }
 
     function startTimer() {
       clearInterval(timer);
-      timer = setInterval(nextSlide, 5000);
+      timer = setInterval(function () {
+        goTo(current + 1);
+      }, 5000);
     }
 
-    // Click dots to jump
     dots.forEach(function (dot) {
       dot.addEventListener('click', function () {
-        var idx = parseInt(dot.getAttribute('data-index'), 10);
         clearInterval(timer);
-        showSlide(idx);
+        goTo(parseInt(dot.getAttribute('data-index'), 10));
         startTimer();
       });
     });
 
-    // Wait for Twitter widgets to render before starting
+    // Wait for Twitter widgets to render before starting auto-play
     function waitForWidgets() {
-      var rendered = carousel.querySelectorAll('.twitter-tweet-rendered, twitter-widget, .twitter-tweet iframe');
+      var rendered = carousel.querySelectorAll('twitter-widget, .twitter-tweet-rendered, iframe');
       if (rendered.length > 0) {
         startTimer();
       } else {
