@@ -14,6 +14,9 @@
 </head>
 <body>
 
+  <!-- Bubbles background -->
+  <div class="bubbles-container" id="bubbles"></div>
+
   <!-- Navigation -->
   <nav class="nav" id="nav">
     <div class="nav-inner">
@@ -26,8 +29,8 @@
       <div class="nav-links" id="nav-links">
         <a href="#problem">Why</a>
         <a href="#how-it-works">How</a>
-        <a href="#install">Install</a>
         <a href="#privacy">Privacy</a>
+        <a href="#install">Install</a>
         <a href="#faq">FAQ</a>
         <a href="https://github.com/percent-20/openclaw-mfa-gate" target="_blank" rel="noopener">GitHub</a>
       </div>
@@ -150,15 +153,11 @@
       <p class="section-eyebrow reveal">Why Mist</p>
       <h2 class="section-title reveal">Built for developers who ship agents to production</h2>
       <div class="features-grid">
-        <div class="feature-card feature-card-large reveal">
+        <div class="feature-card reveal">
           <div class="feature-card-inner">
             <div class="feature-label">Speed</div>
             <h3>Human-in-the-loop, not human-in-the-way</h3>
             <p>Safe operations flow through untouched. Only risky actions pause for approval. Auto-approve takes <strong>under 100ms</strong>. Your agents stay fast.</p>
-            <div class="feature-metric">
-              <span class="metric-value">80<span class="metric-unit">ms</span></span>
-              <span class="metric-label">avg. approval time</span>
-            </div>
           </div>
         </div>
         <div class="feature-card reveal">
@@ -181,6 +180,73 @@
             <h3>Cryptographic device binding</h3>
             <p>Ed25519 key pairs bind each machine to your identity. Scoped tokens. Challenge-response with replay protection. Fails closed on timeout.</p>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Privacy -->
+  <section class="section privacy-section" id="privacy">
+    <div class="privacy-glow"></div>
+    <div class="container">
+      <p class="section-eyebrow reveal">Zero-knowledge privacy</p>
+      <h2 class="section-title reveal">Your data never leaves your phone in raw form</h2>
+      <p class="section-subtitle reveal">Mist was designed so the server can verify you without ever knowing who or where you are.</p>
+
+      <div class="privacy-flow reveal">
+        <div class="privacy-flow-side">
+          <div class="privacy-flow-header">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="4" y="2" width="12" height="16" rx="2.5" stroke="currentColor" stroke-width="1.3"/><circle cx="10" cy="14.5" r="1" fill="currentColor"/></svg>
+            Your phone
+          </div>
+          <div class="privacy-flow-items">
+            <div class="privacy-flow-item pf-raw">WiFi: "Jerry-Home"</div>
+            <div class="privacy-flow-item pf-raw">Location: 32.07, 34.78</div>
+            <div class="privacy-flow-item pf-raw">Time: 14:32 IST</div>
+            <div class="privacy-flow-item pf-raw">Device: Pixel 8 Pro</div>
+          </div>
+          <div class="privacy-flow-process">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8l5 5 5-5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Hash + encrypt on-device
+          </div>
+        </div>
+        <div class="privacy-flow-arrow">
+          <svg width="40" height="20" viewBox="0 0 40 20" fill="none"><path d="M0 10h36m0 0l-6-5m6 5l-6 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Encrypted proofs only</span>
+        </div>
+        <div class="privacy-flow-side">
+          <div class="privacy-flow-header">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="6" width="16" height="10" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M6 6V5a4 4 0 018 0v1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+            Mist server
+          </div>
+          <div class="privacy-flow-items">
+            <div class="privacy-flow-item pf-hash">a7f3...c821</div>
+            <div class="privacy-flow-item pf-hash">9e2b...4f17</div>
+            <div class="privacy-flow-item pf-hash">d41c...8a03</div>
+            <div class="privacy-flow-item pf-hash">b6e9...2d55</div>
+          </div>
+          <div class="privacy-flow-verdict">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8l3 3 5-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Match verified. Approved.
+          </div>
+        </div>
+      </div>
+
+      <div class="privacy-grid">
+        <div class="privacy-card reveal">
+          <div class="privacy-num">01</div>
+          <h3>Encrypted on-device</h3>
+          <p>SafeRoom hashes and encrypts all sensitive data locally on your phone. The server never sees raw coordinates, WiFi names, or device identifiers.</p>
+        </div>
+        <div class="privacy-card reveal">
+          <div class="privacy-num">02</div>
+          <h3>Device-bound keys</h3>
+          <p>Ed25519 key pairs that stay on your machine. Private keys are never transmitted. Each device has its own cryptographic identity.</p>
+        </div>
+        <div class="privacy-card reveal">
+          <div class="privacy-num">03</div>
+          <h3>No third-party tracking</h3>
+          <p>No analytics. No ad networks. No data sharing. The only communication is between your devices and the Mist service.</p>
         </div>
       </div>
     </div>
@@ -302,33 +368,8 @@
     </div>
   </section>
 
-  <!-- Privacy -->
-  <section class="section" id="privacy">
-    <div class="container">
-      <p class="section-eyebrow reveal">Privacy</p>
-      <h2 class="section-title reveal">Your data never leaves your device in raw form</h2>
-      <div class="privacy-grid">
-        <div class="privacy-card reveal">
-          <div class="privacy-num">01</div>
-          <h3>Encrypted on-device</h3>
-          <p>SafeRoom hashes and encrypts all sensitive data locally on your phone. The server never sees raw coordinates, WiFi names, or device identifiers.</p>
-        </div>
-        <div class="privacy-card reveal">
-          <div class="privacy-num">02</div>
-          <h3>Device-bound keys</h3>
-          <p>Ed25519 key pairs that stay on your machine. Private keys are never transmitted. Each device has its own cryptographic identity.</p>
-        </div>
-        <div class="privacy-card reveal">
-          <div class="privacy-num">03</div>
-          <h3>No third-party tracking</h3>
-          <p>No analytics. No ad networks. No data sharing. The only communication is between your devices and the Mist service.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- FAQ -->
-  <section class="section section-alt" id="faq">
+  <section class="section" id="faq">
     <div class="container">
       <p class="section-eyebrow reveal">FAQ</p>
       <h2 class="section-title reveal">Common questions</h2>

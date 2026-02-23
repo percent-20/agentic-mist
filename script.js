@@ -3,6 +3,62 @@
   'use strict';
 
   // ========================================
+  // Bubbles Background
+  // ========================================
+  var bubblesContainer = document.getElementById('bubbles');
+
+  if (bubblesContainer) {
+    var colors = [
+      'rgba(139, 92, 246, ',   // purple
+      'rgba(167, 139, 250, ',  // blue
+      'rgba(192, 132, 252, ',  // teal
+      'rgba(34, 197, 94, ',    // green
+      'rgba(233, 213, 255, ',  // light purple
+    ];
+    var maxBubbles = 25;
+
+    function spawnBubble() {
+      if (bubblesContainer.children.length >= maxBubbles) return;
+
+      var bubble = document.createElement('div');
+      bubble.className = 'bubble';
+
+      var size = Math.random() * 16 + 4; // 4-20px
+      var x = Math.random() * 100;
+      var duration = Math.random() * 12 + 8; // 8-20s
+      var delay = Math.random() * 2;
+      var opacity = Math.random() * 0.06 + 0.03; // 0.03-0.09
+      var color = colors[Math.floor(Math.random() * colors.length)];
+
+      bubble.style.width = size + 'px';
+      bubble.style.height = size + 'px';
+      bubble.style.left = x + '%';
+      bubble.style.background = color + opacity * 8 + ')';
+      bubble.style.boxShadow = '0 0 ' + (size * 2) + 'px ' + color + opacity * 3 + ')';
+      bubble.style.setProperty('--bubble-opacity', opacity);
+      bubble.style.animationDuration = duration + 's';
+      bubble.style.animationDelay = delay + 's';
+
+      bubblesContainer.appendChild(bubble);
+
+      // Remove when animation ends
+      bubble.addEventListener('animationend', function () {
+        bubble.remove();
+      });
+    }
+
+    // Initial burst
+    for (var i = 0; i < 12; i++) { spawnBubble(); }
+
+    // Continuous spawning
+    setInterval(function () {
+      if (document.visibilityState !== 'hidden') {
+        spawnBubble();
+      }
+    }, 1500);
+  }
+
+  // ========================================
   // Scroll Reveal
   // ========================================
   var reveals = document.querySelectorAll('.reveal');
