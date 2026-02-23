@@ -29,33 +29,15 @@
 
   if (terminal) {
     var lines = terminal.querySelectorAll('.t-line');
-    var speeds = [50, 35, 35, 45, 35];
-    var pause = 350;
+    var delays = [0, 600, 1100, 1700, 2400];
 
     if (lines.length) {
-      // Reset
-      lines.forEach(function (l) {
-        l.style.width = '0';
-        l.style.borderRight = 'none';
-      });
-
-      function typeNext(i) {
-        if (i >= lines.length) return;
-        var line = lines[i];
-        var chars = line.textContent.length;
-        var speed = speeds[i] || 35;
-        var dur = chars * speed;
-
-        line.classList.add('typing');
-        line.style.transition = 'width ' + dur + 'ms steps(' + chars + ', end)';
-        line.style.width = '100%';
-
-        setTimeout(function () {
-          line.classList.remove('typing');
-          line.classList.add('typed');
-          line.style.borderRight = 'none';
-          setTimeout(function () { typeNext(i + 1); }, pause);
-        }, dur);
+      function showLines() {
+        lines.forEach(function (line, i) {
+          setTimeout(function () {
+            line.classList.add('typed');
+          }, delays[i] || i * 500);
+        });
       }
 
       // Wait until terminal is visible
@@ -64,17 +46,14 @@
         var tio = new IntersectionObserver(function (entries) {
           entries.forEach(function (e) {
             if (e.isIntersecting) {
-              setTimeout(function () { typeNext(0); }, 600);
+              setTimeout(showLines, 400);
               tio.unobserve(e.target);
             }
           });
         }, { threshold: 0.25 });
         tio.observe(termEl);
       } else {
-        lines.forEach(function (l) {
-          l.style.width = '100%';
-          l.classList.add('typed');
-        });
+        lines.forEach(function (l) { l.classList.add('typed'); });
       }
     }
   }

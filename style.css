@@ -414,19 +414,16 @@ code {
   font-size: inherit;
 }
 
-/* Terminal typing */
+/* Terminal line reveal */
 .t-line {
   display: block;
-  overflow: hidden;
-  white-space: nowrap;
-  width: 0;
+  opacity: 0;
+  transform: translateX(0);
+  transition: opacity 0.3s ease;
 }
-.t-line.typed { width: 100%; }
-.t-line.typing {
-  border-right: 2px solid var(--purple);
-  animation: blink 0.7s step-end infinite;
+.t-line.typed {
+  opacity: 1;
 }
-.no-typing .t-line { width: 100%; border-right: none; }
 
 .t-prompt { color: var(--teal); }
 .t-string { color: var(--green); }
