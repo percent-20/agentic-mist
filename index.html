@@ -73,9 +73,6 @@
 <span class="t-line"><span class="t-muted">&#9656; Executing...</span></span></code></pre>
           </div>
         </div>
-        <div class="hero-phone">
-          <img src="assets/saferoom-authenticated.png" alt="SafeRoom showing Authenticated" width="260" height="auto">
-        </div>
       </div>
     </div>
   </section>
@@ -216,7 +213,7 @@
           <span class="install-step-num">2</span>
           <h3>Pair with SafeRoom and define your safe environment</h3>
         </div>
-        <p>Run the setup wizard. It generates a QR code. Scan it with SafeRoom to bind your vault.</p>
+        <p>Run the setup wizard. It generates a QR code. Scan it with the SafeRoom app to bind your vault.</p>
         <div class="code-block">
           <div class="code-header">
             <span>bash</span>
@@ -224,26 +221,44 @@
           </div>
           <pre><code>openclaw mfa</code></pre>
         </div>
-        <p>Once paired, SafeRoom asks you to define a <strong>safe environment</strong>: the conditions under which agent actions auto-approve. You combine signals from your phone:</p>
-        <div class="env-example">
-          <div class="env-example-header">Example safe environment</div>
-          <div class="env-rules">
-            <div class="env-rule">
-              <span class="env-icon">&#128246;</span>
-              <span>Connected to <strong>&ldquo;Jerry-Home&rdquo;</strong> WiFi</span>
+        <p>Once paired, SafeRoom walks you through creating a <strong>safe environment</strong>: the bubble that defines when your agent can act without asking.</p>
+
+        <!-- Phone walkthrough -->
+        <div class="phone-walkthrough">
+          <div class="phone-step reveal">
+            <div class="phone-step-label">
+              <span class="phone-step-num">A</span>
+              Choose bubble type
             </div>
-            <div class="env-rule">
-              <span class="env-icon">&#128336;</span>
-              <span>Between <strong>08:00</strong> and <strong>19:00</strong></span>
+            <div class="phone-frame">
+              <img src="assets/saferoom-bubble-type.png" alt="SafeRoom: Choose Bubble Type" width="270" height="auto">
             </div>
-            <div class="env-rule">
-              <span class="env-icon">&#127968;</span>
-              <span>At <strong>home</strong></span>
-            </div>
+            <p class="phone-step-desc">Pick the kind of vault to create. For Mist, the Authenticator type handles MFA challenges.</p>
           </div>
-          <p class="env-caption">All conditions match? Approved silently. They don't? SafeRoom sends a push notification for manual review.</p>
+          <div class="phone-step reveal">
+            <div class="phone-step-label">
+              <span class="phone-step-num">B</span>
+              Set security level
+            </div>
+            <div class="phone-frame">
+              <img src="assets/saferoom-security-level.png" alt="SafeRoom: Security Level" width="270" height="auto">
+            </div>
+            <p class="phone-step-desc">Choose how strict. "Time &amp; Place" auto-approves at the right location during work hours. "Maximum Security" adds device proximity checks.</p>
+          </div>
+          <div class="phone-step reveal">
+            <div class="phone-step-label">
+              <span class="phone-step-num">C</span>
+              Select environment signals
+            </div>
+            <div class="phone-frame">
+              <img src="assets/saferoom-select-keys.png" alt="SafeRoom: Select Keys for Vault" width="270" height="auto">
+            </div>
+            <p class="phone-step-desc">Combine signals: location, WiFi, time of day, nearby devices, NFC tags. All data is hashed and encrypted before leaving your phone.</p>
+          </div>
         </div>
-        <p>Define multiple environments (home, office, caf&eacute;) with different rules and time windows. All signals are hashed and encrypted on your phone. The server never sees raw data.</p>
+
+        <p>When all your conditions match, risky agent actions are approved silently. When they don't, SafeRoom sends you a push notification to review.</p>
+        <p>You can define multiple environments (home, office, caf&eacute;) with different rules and time windows.</p>
         <div class="app-notice">
           <div class="app-notice-icon">&#128241;</div>
           <div>
@@ -361,15 +376,20 @@
   <!-- Waiting List -->
   <section class="section" id="waitlist">
     <div class="container">
-      <div class="waitlist-box reveal">
-        <p class="section-eyebrow">Early access</p>
-        <h2>Be the first to try SafeRoom</h2>
-        <p>The companion app that powers Mist approvals is coming to iOS and Android. Leave your email and we'll let you know.</p>
-        <form class="waitlist-form" id="waitlist-form" action="https://formspree.io/f/xpwzgkvn" method="POST">
-          <input type="email" name="email" placeholder="you@example.com" required autocomplete="email">
-          <button type="submit" class="btn btn-primary">Join Waiting List</button>
-        </form>
-        <p class="waitlist-note" id="waitlist-note">No spam. One email when it ships.</p>
+      <div class="waitlist-layout reveal">
+        <div class="waitlist-phone">
+          <img src="assets/saferoom-authenticated.png" alt="SafeRoom showing Authenticated status" width="220" height="auto">
+        </div>
+        <div class="waitlist-box">
+          <p class="section-eyebrow">Early access</p>
+          <h2>Be the first to try SafeRoom</h2>
+          <p>The companion app that powers Mist approvals is coming to iOS and Android. Leave your email and we'll let you know.</p>
+          <form class="waitlist-form" id="waitlist-form" action="https://formspree.io/f/xpwzgkvn" method="POST">
+            <input type="email" name="email" placeholder="you@example.com" required autocomplete="email">
+            <button type="submit" class="btn btn-primary">Join Waiting List</button>
+          </form>
+          <p class="waitlist-note" id="waitlist-note">No spam. One email when it ships.</p>
+        </div>
       </div>
     </div>
   </section>
