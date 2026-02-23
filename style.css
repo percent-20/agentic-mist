@@ -109,10 +109,10 @@ code {
     opacity: 0;
   }
   10% {
-    opacity: var(--bubble-opacity, 0.08);
+    opacity: var(--bubble-opacity, 0.15);
   }
   90% {
-    opacity: var(--bubble-opacity, 0.08);
+    opacity: var(--bubble-opacity, 0.15);
   }
   100% {
     transform: translateY(calc(-100vh - 100px)) scale(1);

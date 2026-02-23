@@ -23,18 +23,18 @@
       var bubble = document.createElement('div');
       bubble.className = 'bubble';
 
-      var size = Math.random() * 16 + 4; // 4-20px
+      var size = Math.random() * 30 + 6; // 6-36px
       var x = Math.random() * 100;
       var duration = Math.random() * 12 + 8; // 8-20s
       var delay = Math.random() * 2;
-      var opacity = Math.random() * 0.06 + 0.03; // 0.03-0.09
+      var opacity = Math.random() * 0.12 + 0.06; // 0.06-0.18
       var color = colors[Math.floor(Math.random() * colors.length)];
 
       bubble.style.width = size + 'px';
       bubble.style.height = size + 'px';
       bubble.style.left = x + '%';
-      bubble.style.background = color + opacity * 8 + ')';
-      bubble.style.boxShadow = '0 0 ' + (size * 2) + 'px ' + color + opacity * 3 + ')';
+      bubble.style.background = color + (opacity * 5) + ')';
+      bubble.style.boxShadow = '0 0 ' + (size * 3) + 'px ' + color + (opacity * 2) + ')';
       bubble.style.setProperty('--bubble-opacity', opacity);
       bubble.style.animationDuration = duration + 's';
       bubble.style.animationDelay = delay + 's';
