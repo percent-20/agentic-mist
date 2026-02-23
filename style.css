@@ -617,41 +617,60 @@ code {
 }
 
 /* ========================================
-   Tweets Section
+   Tweets Carousel
    ======================================== */
 .tweets-section {
   overflow: hidden;
 }
 
-.tweets-scroll {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  scrollbar-color: var(--border-light) transparent;
-  padding: 0 28px 16px;
-  margin-top: 40px;
+.tweet-carousel {
   position: relative;
-  z-index: 3;
+  max-width: 550px;
+  margin: 40px auto 0;
+  min-height: 300px;
 }
-.tweets-scroll::-webkit-scrollbar { height: 6px; }
-.tweets-scroll::-webkit-scrollbar-track { background: transparent; }
-.tweets-scroll::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 3px; }
 
-.tweets-track {
+.tweet-slide {
+  display: none;
+  animation: tweetFadeIn 0.5s ease;
+}
+.tweet-slide.active {
+  display: block;
+}
+
+@keyframes tweetFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.tweet-slide .twitter-tweet {
+  margin: 0 auto !important;
+}
+
+.tweet-dots {
   display: flex;
-  gap: 20px;
-  min-width: max-content;
-  padding-bottom: 4px;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
 }
 
-.tweet-embed {
-  flex-shrink: 0;
-  width: 360px;
-  min-height: 200px;
+.tweet-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--border-light);
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s;
 }
-
-.tweet-embed .twitter-tweet {
-  margin: 0 !important;
+.tweet-dot:hover {
+  border-color: var(--purple);
+}
+.tweet-dot.active {
+  background: var(--purple);
+  border-color: var(--purple);
+  transform: scale(1.3);
 }
 
 /* ========================================

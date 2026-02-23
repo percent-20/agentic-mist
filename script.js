@@ -56,6 +56,44 @@
   }
 
   // ========================================
+  // Tweet Carousel
+  // ========================================
+  var carousel = document.getElementById('tweet-carousel');
+  if (carousel) {
+    var slides = carousel.querySelectorAll('.tweet-slide');
+    var dots = carousel.querySelectorAll('.tweet-dot');
+    var current = 0;
+    var timer = null;
+
+    function showSlide(index) {
+      slides.forEach(function (s) { s.classList.remove('active'); });
+      dots.forEach(function (d) { d.classList.remove('active'); });
+      current = index % slides.length;
+      slides[current].classList.add('active');
+      dots[current].classList.add('active');
+    }
+
+    function nextSlide() {
+      showSlide(current + 1);
+    }
+
+    function startTimer() {
+      timer = setInterval(nextSlide, 5000);
+    }
+
+    // Click dots to jump
+    dots.forEach(function (dot) {
+      dot.addEventListener('click', function () {
+        clearInterval(timer);
+        showSlide(parseInt(dot.getAttribute('data-index'), 10));
+        startTimer();
+      });
+    });
+
+    startTimer();
+  }
+
+  // ========================================
   // Scroll Reveal
   // ========================================
   var reveals = document.querySelectorAll('.reveal');
