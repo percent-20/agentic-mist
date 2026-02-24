@@ -482,5 +482,20 @@
   <script src="script.js"></script>
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+  <!-- Firebase SDK (compat) for Firebase Console Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/11.4.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics-compat.js"></script>
+  <script>
+    firebase.initializeApp({
+      projectId: "agentic-mist",
+      appId: "1:699853629988:web:57d4b92e38a4c3670b86b1",
+      apiKey: "AIzaSyCAoCB8djf0SI6J7PXx9MPdSO5N4m0Bea0",
+      authDomain: "agentic-mist.firebaseapp.com",
+      messagingSenderId: "699853629988",
+      storageBucket: "agentic-mist.firebasestorage.app",
+      measurementId: "G-S50LW99N0X"
+    });
+    firebase.analytics();
+  </script>
 </body>
 </html>
