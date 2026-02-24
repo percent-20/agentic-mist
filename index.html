@@ -11,6 +11,15 @@
   <meta property="og:url" content="https://percent-20.github.io/agentic-mist/">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-S50LW99N0X"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-S50LW99N0X');
+  </script>
 </head>
 <body>
 
@@ -473,37 +482,5 @@
   <script src="script.js"></script>
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-  <!-- Firebase + Analytics -->
-  <script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js';
-    import { getAnalytics, logEvent } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics.js';
-
-    const app = initializeApp({
-      projectId: "agentic-mist",
-      appId: "1:699853629988:web:57d4b92e38a4c3670b86b1",
-      apiKey: "AIzaSyCAoCB8djf0SI6J7PXx9MPdSO5N4m0Bea0",
-      authDomain: "agentic-mist.firebaseapp.com",
-      messagingSenderId: "699853629988",
-      storageBucket: "agentic-mist.firebasestorage.app",
-      measurementId: "G-S50LW99N0X"
-    });
-
-    const analytics = getAnalytics(app);
-
-    // Track CTA clicks
-    document.querySelectorAll('.btn-primary').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        logEvent(analytics, 'cta_click', { label: btn.textContent.trim() });
-      });
-    });
-
-    // Track waitlist submit
-    var form = document.getElementById('waitlist-form');
-    if (form) {
-      form.addEventListener('submit', function() {
-        logEvent(analytics, 'waitlist_signup');
-      });
-    }
-  </script>
 </body>
 </html>

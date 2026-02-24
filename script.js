@@ -222,6 +222,7 @@
             form.style.display = 'none';
             note.textContent = "You're on the list. We'll email you when SafeRoom ships.";
             note.className = 'waitlist-note waitlist-success';
+            if (typeof gtag === 'function') { gtag('event', 'waitlist_signup'); }
           } else {
             note.textContent = 'Something went wrong. Try again.';
             if (btn) { btn.textContent = 'Join Waiting List'; btn.disabled = false; }
