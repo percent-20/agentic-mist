@@ -12,14 +12,6 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
 
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-S50LW99N0X"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-S50LW99N0X');
-  </script>
 </head>
 <body>
 
@@ -482,20 +474,23 @@
   <script src="script.js"></script>
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-  <!-- Firebase SDK (compat) for Firebase Console Analytics -->
-  <script src="https://www.gstatic.com/firebasejs/11.4.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics-compat.js"></script>
-  <script>
-    firebase.initializeApp({
-      projectId: "agentic-mist",
-      appId: "1:699853629988:web:57d4b92e38a4c3670b86b1",
+  <!-- Firebase Analytics -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-analytics.js";
+
+    const firebaseConfig = {
       apiKey: "AIzaSyCAoCB8djf0SI6J7PXx9MPdSO5N4m0Bea0",
       authDomain: "agentic-mist.firebaseapp.com",
-      messagingSenderId: "699853629988",
+      projectId: "agentic-mist",
       storageBucket: "agentic-mist.firebasestorage.app",
+      messagingSenderId: "699853629988",
+      appId: "1:699853629988:web:57d4b92e38a4c3670b86b1",
       measurementId: "G-S50LW99N0X"
-    });
-    firebase.analytics();
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
   </script>
 </body>
 </html>
