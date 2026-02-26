@@ -9,7 +9,7 @@ Mist is an [OpenClaw](https://github.com/percent-20/openclaw) plugin that adds m
 ## Quick Start
 
 ```bash
-openclaw plugins install @percent-20/openclaw-mfa-gate
+openclaw plugins install openclaw-mfa-gate
 openclaw mfa          # pair with SafeRoom via QR code
 openclaw restart
 ```

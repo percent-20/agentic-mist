@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mist - MFA for AI Agents</title>
-  <meta name="description" content="Mist adds multi-factor authentication to AI agent actions. When your agent tries something risky, a human approves. An OpenClaw plugin by Percent-20.">
-  <meta property="og:title" content="Mist - MFA for AI Agents">
+  <title>AgenticMist - MFA for AI Agents</title>
+  <meta name="description" content="AgenticMist adds multi-factor authentication to AI agent actions. When your agent tries something risky, a human approves. An OpenClaw plugin by Percent-20.">
+  <meta property="og:title" content="AgenticMist - MFA for AI Agents">
   <meta property="og:description" content="Multi-factor authentication for AI agent actions. When your agent tries something risky, a human approves.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://percent-20.github.io/agentic-mist/">
@@ -22,7 +22,7 @@
   <nav class="nav" id="nav">
     <div class="nav-inner">
       <a href="#" class="nav-logo">
-        <span class="logo-icon">&#9672;</span> Mist
+        <span class="logo-icon">&#9672;</span> AgenticMist
       </a>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
         <span></span><span></span><span></span>
@@ -49,7 +49,7 @@
       </h1>
       <p class="hero-subtitle reveal">
         Your agent can delete databases, call external APIs, and escalate privileges.
-        Mist makes sure a human is in the room when it does.
+        AgenticMist makes sure a human is in the room when it does.
       </p>
       <div class="hero-actions reveal">
         <a href="#install" class="btn btn-primary">
@@ -90,7 +90,7 @@
           <h2 class="section-title-left reveal">AI agents are getting root access. Nobody is watching.</h2>
           <p class="problem-body reveal">You gave your agent permission to deploy, delete, and call APIs on your behalf. It runs 24/7. It doesn't sleep. It doesn't double-check.</p>
           <p class="problem-body reveal">One hallucinated command. One misconfigured prompt. That's all it takes.</p>
-          <p class="problem-body problem-highlight reveal">Every serious agent framework will need an approval layer. Mist is that layer.</p>
+          <p class="problem-body problem-highlight reveal">Every serious agent framework will need an approval layer. AgenticMist is that layer.</p>
         </div>
         <div class="problem-visual reveal">
           <div class="danger-card">
@@ -145,7 +145,7 @@
     <div class="container">
       <p class="section-eyebrow reveal">The solution</p>
       <h2 class="section-title reveal">Three steps between your agent and disaster</h2>
-      <p class="section-subtitle reveal">Mist intercepts risky actions and checks if you're present before executing</p>
+      <p class="section-subtitle reveal">AgenticMist intercepts risky actions and checks if you're present before executing</p>
       <div class="flow">
         <div class="flow-step reveal">
           <div class="flow-icon">
@@ -180,7 +180,7 @@
   <!-- Features -->
   <section class="section" id="features">
     <div class="container">
-      <p class="section-eyebrow reveal">Why Mist</p>
+      <p class="section-eyebrow reveal">Why AgenticMist</p>
       <h2 class="section-title reveal">Built for developers who ship agents to production</h2>
       <div class="features-grid">
         <div class="feature-card reveal">
@@ -221,7 +221,7 @@
     <div class="container">
       <p class="section-eyebrow reveal">Zero-knowledge privacy</p>
       <h2 class="section-title reveal">Your data never leaves your phone in raw form</h2>
-      <p class="section-subtitle reveal">Mist was designed so the server can verify you without ever knowing who or where you are.</p>
+      <p class="section-subtitle reveal">AgenticMist was designed so the server can verify you without ever knowing who or where you are.</p>
 
       <div class="privacy-flow reveal">
         <div class="privacy-flow-side">
@@ -247,7 +247,7 @@
         <div class="privacy-flow-side">
           <div class="privacy-flow-header">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="6" width="16" height="10" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M6 6V5a4 4 0 018 0v1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-            Mist server
+            AgenticMist server
           </div>
           <div class="privacy-flow-items">
             <div class="privacy-flow-item pf-hash">a7f3...c821</div>
@@ -297,9 +297,9 @@
         <div class="code-block">
           <div class="code-header">
             <span>bash</span>
-            <button class="copy-btn" data-copy="openclaw plugins install @percent-20/openclaw-mfa-gate">Copy</button>
+            <button class="copy-btn" data-copy="openclaw plugins install openclaw-mfa-gate">Copy</button>
           </div>
-          <pre><code>openclaw plugins install @percent-20/openclaw-mfa-gate</code></pre>
+          <pre><code>openclaw plugins install openclaw-mfa-gate</code></pre>
         </div>
       </div>
 
@@ -360,7 +360,7 @@
           <span class="install-step-num">3</span>
           <h3>Configure and restart</h3>
         </div>
-        <p>Tell OpenClaw to route approvals through Mist:</p>
+        <p>Tell OpenClaw to route approvals through AgenticMist:</p>
         <div class="code-block">
           <div class="code-header">
             <span>~/.openclaw/config.json</span>
@@ -417,11 +417,11 @@
 
         <details class="faq-item">
           <summary>What happens if the server is unreachable?</summary>
-          <p>Mist fails closed. If the challenge can't be created or the response times out, the action is denied by default. You can configure the timeout in your OpenClaw settings.</p>
+          <p>AgenticMist fails closed. If the challenge can't be created or the response times out, the action is denied by default. You can configure the timeout in your OpenClaw settings.</p>
         </details>
 
         <details class="faq-item">
-          <summary>Can I use Mist on multiple machines?</summary>
+          <summary>Can I use AgenticMist on multiple machines?</summary>
           <p>Yes. Each machine generates its own Ed25519 key pair and binds to your vault. Run <code>openclaw mfa</code> on each machine and scan the QR code with the same SafeRoom account.</p>
         </details>
 
@@ -444,7 +444,7 @@
         <div class="waitlist-box">
           <p class="section-eyebrow">Early access</p>
           <h2>Be the first to try SafeRoom</h2>
-          <p>The companion app that powers Mist approvals is coming to iOS and Android. Leave your email and we'll let you know.</p>
+          <p>The companion app that powers AgenticMist approvals is coming to iOS and Android. Leave your email and we'll let you know.</p>
           <form class="waitlist-form" id="waitlist-form" action="https://formspree.io/f/mnjbolzd" method="POST">
             <input type="email" name="email" placeholder="you@example.com" required autocomplete="email">
             <button type="submit" class="btn btn-primary">Join Waiting List</button>
@@ -460,7 +460,7 @@
     <div class="container">
       <div class="footer-inner">
         <div class="footer-left">
-          <span class="logo-icon">&#9672;</span> <strong>Mist</strong> <span class="footer-sep">A <a href="https://percent-20.com" target="_blank" rel="noopener">Percent-20</a> project.</span>
+          <span class="logo-icon">&#9672;</span> <strong>AgenticMist</strong> <span class="footer-sep">A <a href="https://percent-20.com" target="_blank" rel="noopener">Percent-20</a> project.</span>
         </div>
         <div class="footer-links">
           <a href="https://github.com/percent-20/openclaw-mfa-gate" target="_blank" rel="noopener">GitHub</a>
